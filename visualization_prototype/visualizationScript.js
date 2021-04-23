@@ -42,9 +42,8 @@ g.selectAll('path')
 
 
 function zoomed() {
-    // g
-    //   .selectAll('path') // To prevent stroke width from scaling
-    //   .attr('transform', d3.event.transform);
+    g.selectAll('path') // To prevent stroke width from scaling
+    .attr('transform', d3.event.transform);
   }
 
 console.log("fasfasd")
