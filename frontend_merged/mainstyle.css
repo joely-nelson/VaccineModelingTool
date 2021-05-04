@@ -1,0 +1,88 @@
+.header {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+} 
+  
+.left {
+    flex: 25%;
+    
+}
+
+.main {
+    flex: 75%;
+} 
+
+.column {
+    float: left;
+    padding: 10px;
+    /* height: 1000px */
+    /* height: 300px; Should be removed. Only for demonstration */
+}
+
+.label {
+    border: none;
+    color: navy;
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+  
+.button1 {background-color: #4CAF50;} /* Green */
+
+
+.boundary {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 0.5px;
+  }
+
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+
+  
+
+
+/* chloropleth style requirements */
+
+.row.map {
+    height: 1000px;
+}
+
+.row.slider {
+    height: 150px;
+}
+
+#slider {
+  /* position: absolute; */
+  /* left: 50%; */
+  /* margin-left: -300px; */
+  width: 800;
+  height: 75;
+}
+
+svg {
+    /* position: absolute; */
+    width: 100%;
+    height: 100%;
+}

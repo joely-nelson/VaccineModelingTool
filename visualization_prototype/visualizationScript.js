@@ -44,8 +44,16 @@ function update() {
       var name = d.properties.ADMIN;
       return colors[currentIndex][name];
     })
+    .on("click", function(d, i) {
+      console.log(d);
+      console.log(d.target.__data__.properties.ADMIN);
+    })
   .append("svg:title")
-  .text(function(d) { return d.properties.ADMIN });
+  .text(function(d) { 
+    // console.log(d.properties.ADMIN)
+    return d.properties.ADMIN })
+  ;
+  
 }
 
 update();
