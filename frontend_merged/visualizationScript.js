@@ -79,8 +79,8 @@ var slider = d3.sliderHorizontal()
     });
     update();
   }
-  d3.select('#value').text(val);
-  console.log(val)
+  // d3.select('#value').text(val);
+  // console.log(val)
 });
 
 d3.select("#slider")
