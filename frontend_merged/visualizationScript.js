@@ -28,7 +28,8 @@ svg.call(zoom);
 function zoomed(event, d) {
     map.selectAll('path') // To prevent stroke width from scaling
     .attr('transform', event.transform);
-  }
+}
+
     
   
 
@@ -51,7 +52,19 @@ function update() {
   .append("svg:title")
   .text(function(d) { 
     // console.log(d.properties.ADMIN)
-    return d.properties.ADMIN })
+    var name = d.properties.ADMIN 
+    if (dummy_model_output[name] == undefined) {
+      return name;
+    }
+    var s =  name + "\n\n"
+    + "Suceptible: " + dummy_model_output[name][1][currentIndex][0] * 100 / 100.0  + "%\n"
+    + "Exposed: " +  dummy_model_output[name][1][currentIndex][1] * 100 / 100.0  + "%\n"
+    + "Infected: " +  dummy_model_output[name][1][currentIndex][2] * 100 / 100.0  + "%\n"
+    + "Dead: " +  dummy_model_output[name][1][currentIndex][3] * 100 / 100.0 + "%\n"
+    + "Recovered: " +  dummy_model_output[name][1][currentIndex][4] * 100 / 100.0 + "%\n"
+    + "Vaccinated: " +  dummy_model_output[name][1][currentIndex][5] * 100 / 100.0 + "%\n"
+    return s;
+   })
   ;
   
 }
@@ -60,12 +73,11 @@ update();
 
 
 
-
-
+// console.log(dummy_model_output);
 // slider code
 var slider = d3.sliderHorizontal()
 .min(0)
-.max(colors.length - 1)
+.max(20) // size of the slider, may need adiditional info to adjust
 .step(1)
 .displayValue(true)
 .width(600)
@@ -75,7 +87,15 @@ var slider = d3.sliderHorizontal()
     map.selectAll("path")
     .style("fill", function(d, i) {
       var name = d.properties.ADMIN;
-      return colors[currentIndex][name];
+
+      var colorSelection = d3.scaleSequential(["#acb3bf", "blue"])
+      if (dummy_model_output[name] == undefined) {
+        return "black";
+      }
+      console.log(name);
+      console.log(dummy_model_output[name]);
+      console.log(dummy_model_output[name][1]);
+      return colorSelection(dummy_model_output[name][1][currentIndex][0] / 100.0);
     });
     update();
   }

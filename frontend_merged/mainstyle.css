@@ -76,7 +76,7 @@ clear: both;
 #slider {
   /* position: absolute; */
   /* left: 50%; */
-  /* margin-left: -300px; */
+  /* margin-left: 300px; */
   width: 800;
   height: 75;
 }

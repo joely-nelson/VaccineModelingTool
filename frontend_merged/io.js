@@ -1,11 +1,20 @@
-var in1 = 0.0
-var in2 = 0.0
-var in3 = 0.0
+var default_params;
+var in1;
+var in2;
+var in3;
 
-// Initial value for inputs
-in1Update(in1);
-in2Update(in2);
-in3Update(in3);
+// get default parameters
+d3.json("http://localhost:8000/json_io_files/default_params.json").then(function(data){
+    default_params = data;
+    in1 = default_params.in1;
+    in2 = default_params.in2;
+    in3 = default_params.in3;
+    
+    // Initial value for inputs
+    in1Update(in1);
+    in2Update(in2);
+    in3Update(in3);
+});
 
 // Bind user input to function
 d3.select("#input1").on("input", function() {
@@ -31,7 +40,7 @@ function in1Update(input1) {
     console.log(in1);  // for debugging
 }
 
-  // update input2 val
+// update input2 val
 function in2Update(input2) {
     in2 = input2;
     d3.select("#input2").property("value", in2);
@@ -50,7 +59,9 @@ function in3Update(input3) {
 // trigger model simulation
 function simulate() {
     console.log("Click");
-    d3.json("http://localhost:8000/?efficacy=2", function(data) {
+    var url = "http://localhost:8000/?input1="+in1+"&input2="+in2+"input3="+in3;
+    d3.json(url)
+     .then(function(data) {
     console.log(data);
     }); 
 }
