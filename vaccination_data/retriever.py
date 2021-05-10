@@ -6,8 +6,9 @@ import sys
 import time
 import csv
 
-# Takes arguments unparsed population file, removes all blank rows and non-recent 
+# Takes arguments unparsed population file, removes all non-recent 
 # population data, and outputs a parsed file.
+# TODO: remove blank rows
 def population_parser(unparsed, parsed):
     parsed_writer = csv.writer(parsed)
     # Go through each row in unparsed file
@@ -16,8 +17,6 @@ def population_parser(unparsed, parsed):
         # and most recent population data to the parsed file.
         if any(field.strip() for field in row):
             parsed_writer.writerow((row[0], row[1], row[58]))
-
-# def vaccination_parser(unparsed, parsed):
 
 # Web address for directory containing vaccination data.
 url_vax = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/"
@@ -70,8 +69,6 @@ while 1:
     pop_fig_by_country_file.close()
     pop_fig_by_country_file_unparsed = open("population-figures-by-country-csv.csv", "r")
     population_parser(pop_fig_by_country_file_unparsed, pop_fig_by_country_file_parsed)
-
-    # TODO: Format the vaccination file
 
     vax_file.close()
     vax_by_man_file.close()
