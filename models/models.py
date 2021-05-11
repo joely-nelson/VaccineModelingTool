@@ -183,7 +183,7 @@ def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_d
     ret_dict = dict()
     
     # loop through population file to get population for each country
-    with open('../vaccination_data/population-figures-by-country-csv-parsed.csv') as csv_file:
+    with open('./vaccination_data/population-figures-by-country-csv-parsed.csv') as csv_file:
         csv_dict = csv.DictReader(csv_file)
         for row in csv_dict:
             # get country and population for country. Ignore if data missing.
@@ -198,5 +198,5 @@ def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_d
                 # add results to the ret dict
                 ret_dict[country] = (list(t), [list(i) for i in v])
                 
-    with open("../json_io_files/model_output.json", "w") as write_file:
+    with open("./json_io_files/model_output.json", "w") as write_file:
         json.dump(ret_dict, write_file)
