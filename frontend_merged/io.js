@@ -34,7 +34,10 @@ d3.json("http://localhost:8000/json_io_files/default_params.json").then(function
     in6Update(in6);
     in7Update(in7);
     in8Update(in8);
+
 });
+
+
 
 // Bind user input to function
 d3.select("#input1").on("input", function() {
@@ -161,5 +164,7 @@ function simulate() {
      .then(function(data) {
     console.log(data);
     simResults = data;
+    update();
     }); 
+    
 }
