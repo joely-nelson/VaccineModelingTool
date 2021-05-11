@@ -17,16 +17,17 @@ def population_parser(unparsed, parsed):
         # If the row is not blank, write only the country name, ISO code,
         # and most recent population data to the parsed file.
         if any(field.strip() for field in row):
-            parsed_writer.writerow((row[0], row[1], row[58]))
+            # Eritrea does not have most recent data, so we have to go back a bit
+            if row[1] == "ERI":
+                parsed_writer.writerow((row[0], row[1], row[53]))
+            else: 
+                parsed_writer.writerow((row[0], row[1], row[58]))
 
 # Takes a parsed population file and ouputs a json mapping country names to populations
 def make_pop_json(pop_csv, pop_json):
     pop_reader = csv.reader(pop_csv)
-    pop_dict = dict((row[0], row[2]) for row in pop_reader)
-    print(json.dumps(pop_dict, pop_json))
+    pop_dict = dict((row[1], row[2]) for row in pop_reader)
     json.dump(pop_dict, pop_json)
-    print("here")
-
 
 
 # Web address for directory containing vaccination data.
@@ -47,7 +48,7 @@ while 1:
     locations = requests.get(url_vax + "locations.csv")
     if not locations:
         print("error: locations.csv not found")
-    us_state_vax = requests.get(url_vax + "us-state-vaccinations.csv")
+    us_state_vax = requests.get(url_vax + "us_state_vaccinations.csv")
     if not us_state_vax:
         print("error: us-state-vaccinations.csv not found")
     full_data = requests.get(url_jhu + "full_data.csv")
