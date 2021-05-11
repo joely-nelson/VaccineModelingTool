@@ -4,6 +4,21 @@ var map = d3.select("svg #map");
 var width = 1000;
 var height = 700;
 
+var population = (function () {
+  var json = null;
+  $.ajax({
+      'async': false,
+      'global': false,
+      'url': "./data/population-figures-by-country-json.json",
+      'dataType': "json",
+      'success': function (data) {
+          json = data;
+      }
+  });
+  return json;
+})();
+
+
 var currentIndex = 0;
 
 // creating the projection type
@@ -56,7 +71,10 @@ function update() {
     if (dummy_model_output[name] == undefined) {
       return name;
     }
+    console.log(population);
+    console.log(population[d.properties.ISO_A3]);
     var s =  name + "\n\n"
+    + "Population: " + population[d.properties.ISO_A3] + "\n"
     + "Suceptible: " + dummy_model_output[name][1][currentIndex][0] * 100 / 100.0  + "%\n"
     + "Exposed: " +  dummy_model_output[name][1][currentIndex][1] * 100 / 100.0  + "%\n"
     + "Infected: " +  dummy_model_output[name][1][currentIndex][2] * 100 / 100.0  + "%\n"
@@ -72,12 +90,6 @@ function update() {
 // initial call 
 update();
 
-var population = d3.json("../json_io_files/population-figures-by-country-json.json", function(data) {
-  return data;
-});
-console.log("dasf");
-console.log(population);
-console.log("fasdf");
 
 
 
