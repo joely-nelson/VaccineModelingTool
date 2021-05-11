@@ -5,6 +5,8 @@
 
 import numpy as np
 from scipy.integrate import odeint
+import csv
+import json
 
 def simulate(model, x0, t, k):
     '''
@@ -161,41 +163,40 @@ def simulate_region(total_pop, alpha, beta, eps, gamma,
     return ts, result
 
 
-def simulate_world():
+def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_days, vac_rate):
     '''
-    Simulates the entire world given parameters from files..?
-    WARNING: THIS CODE DOES NOT WORK. IT IS PSUEDOCODE.
-    Perhaps this function should return an 
+    Simulates the entire world given parameters from files.
+    ARGS:
+        default parameters to be fed into model
+    RETURNS:
+        None. Writes a json file into the json_io_files directory named
+        model_output.json. This file represents a dictionary where the keys
+        are the countries and the values are a the result of calling simulate
+        region for that country.
+    OTHER NOTES:
+        When fit to USA, best alpha, beta, gamma, eps is:
+            alpha = 0.005
+            beta = 0.27
+            gamma = 0.2
+            eps = 0.2    
     '''
     ret_dict = dict()
     
-    # get the list of countries to look at
-    # This might be just looping through a csv file with the needed data?
-    # Unsure exactly.
-    country_lst = get_country_lst()
-    for country in country_lst:
-        # GATHERING PARAMETERS TO RUN MODEL:
-        # get the total population of this country
-        total_pop = get_pop(country)
-        # hardcoded for now
-        alpha = 0.005
-        beta = 0.27
-        gamma = 0.2
-        eps = 0.2        
-        # get vac start day based on user input
-        vac_start_day = get_vac_start_day        
-        # get vac_rate
-        vac_rate = get_vac_rate(country_name)        
-        # get the vac_uptake percent if possible
-        uptake_per = get_uptake_per(country_name)    
-        # get the day the number of days the user wants to simulate
-        num_vac_days = get_num_vac_days(country_name)
-        
-        # simulate
-        t, v = simulate_region(total_pop, alpha, beta, eps, gamma, 
-                    vac_start_day, vac_rate, uptake_per, num_vac_days)
-        
-        # add results to the ret dict
-        ret_dict[country] = (t, v)
-        
-    return ret_dict
+    # loop through population file to get population for each country
+    with open('../vaccination_data/population-figures-by-country-csv-parsed.csv') as csv_file:
+        csv_dict = csv.DictReader(csv_file)
+        for row in csv_dict:
+            # get country and population for country. Ignore if data missing.
+            country = row['Country']
+            if row['Year_2016'] != '':
+                total_pop = int(row['Year_2016'])
+
+                # simulate
+                t, v = simulate_region(total_pop, alpha, beta, eps, gamma, 
+                            vac_start_day, vac_rate, uptake_per, num_vac_days)
+
+                # add results to the ret dict
+                ret_dict[country] = (list(t), [list(i) for i in v])
+                
+    with open("../json_io_files/model_output.json", "w") as write_file:
+        json.dump(ret_dict, write_file)
