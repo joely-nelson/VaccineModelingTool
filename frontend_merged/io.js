@@ -1,7 +1,14 @@
+// alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_days, vac_rate
+
 var default_params;
 var in1;
 var in2;
 var in3;
+var in4;
+var in5;
+var in6;
+var in7;
+var in8;
 
 // get default parameters
 d3.json("http://localhost:8000/json_io_files/default_params.json").then(function(data){
@@ -9,11 +16,22 @@ d3.json("http://localhost:8000/json_io_files/default_params.json").then(function
     in1 = default_params.in1;
     in2 = default_params.in2;
     in3 = default_params.in3;
+    in4 = default_params.in4;
+    in5 = default_params.in5;
+    in6 = default_params.in6;
+    in7 = default_params.in7;
+    in8 = default_params.in8;
+
     
     // Initial value for inputs
     in1Update(in1);
     in2Update(in2);
     in3Update(in3);
+    in4Update(in4);
+    in5Update(in5);
+    in6Update(in6);
+    in7Update(in7);
+    in8Update(in8);
 });
 
 // Bind user input to function
@@ -29,9 +47,31 @@ d3.select("#input3").on("input", function() {
     in3Update(+this.value);
 });
 
+d3.select("#input4").on("input", function() {
+    in4Update(+this.value);
+});
+
+d3.select("#input5").on("input", function() {
+    in5Update(+this.value);
+});
+
+d3.select("#input6").on("input", function() {
+    in6Update(+this.value);
+});
+
+d3.select("#input7").on("input", function() {
+    in7Update(+this.value);
+});
+
+d3.select("#input8").on("input", function() {
+    in8Update(+this.value);
+});
+
 d3.select('#simulate').on("click", function() {
     simulate();
 });
+
+
 
 // update input1 val
 function in1Update(input1) {
@@ -55,6 +95,53 @@ function in3Update(input3) {
     d3.select("#input3").property("value", in3);
     console.log(in3);
 }
+
+// update input4 val
+function in4Update(input4) {
+    in4 = input4;
+    // adjust the text on the range slider
+    d3.select("#input4-value").text(in4);
+    d3.select("#input4").property("value", in4);
+    console.log(in4);
+}
+
+// update input5 val
+function in5Update(input5) {
+    in5 = input5;
+    // adjust the text on the range slider
+    d3.select("#input5-value").text(in5);
+    d3.select("#input5").property("value", in5);
+    console.log(in5);
+}
+
+// update input6 val
+function in6Update(input6) {
+    in6 = input6;
+    // adjust the text on the range slider
+    d3.select("#input6-value").text(in6);
+    d3.select("#input6").property("value", in6);
+    console.log(in6);
+}
+
+// update input7 val
+function in7Update(input7) {
+    in7 = input7;
+    // adjust the text on the range slider
+    d3.select("#input7-value").text(in7);
+    d3.select("#input7").property("value", in7);
+    console.log(in7);
+}
+
+// update input8 val
+function in8Update(input8) {
+    in8 = input8;
+    // adjust the text on the range slider
+    d3.select("#input8-value").text(in8);
+    d3.select("#input8").property("value", in8);
+    console.log(in8);
+}
+
+
 
 // trigger model simulation
 function simulate() {
