@@ -33,7 +33,7 @@ function zoomed(event, d) {
     
   
 
-// update map
+// ~~~~~~~~update map~~~~~~~~~~~~~
 function update() {
   //linking projection to the data
   map.selectAll('path')
@@ -69,12 +69,20 @@ function update() {
   
 }
 
+// initial call 
 update();
 
+var population = d3.json("../json_io_files/population-figures-by-country-json.json", function(data) {
+  return data;
+});
+console.log("dasf");
+console.log(population);
+console.log("fasdf");
 
 
-// console.log(dummy_model_output);
-// slider code
+
+
+//~~~~~~~slider code~~~~~~~~~~~~
 var slider = d3.sliderHorizontal()
 .min(0)
 .max(20) // size of the slider, may need adiditional info to adjust
@@ -92,10 +100,10 @@ var slider = d3.sliderHorizontal()
       if (dummy_model_output[name] == undefined) {
         return "black";
       }
-      console.log(name);
-      console.log(dummy_model_output[name]);
-      console.log(dummy_model_output[name][1]);
-      return colorSelection(dummy_model_output[name][1][currentIndex][0] / 100.0);
+      // console.log(name);
+      // console.log(dummy_model_output[name]);
+      // console.log(dummy_model_output[name][1]);
+      return colorSelection(dummy_model_output[name][1][currentIndex][3] / 100.0);
     });
     update();
   }
