@@ -5,6 +5,7 @@ import requests
 import sys
 import time
 import csv
+import json
 
 # Takes arguments unparsed population file, removes all non-recent 
 # population data, and outputs a parsed file.
@@ -17,6 +18,16 @@ def population_parser(unparsed, parsed):
         # and most recent population data to the parsed file.
         if any(field.strip() for field in row):
             parsed_writer.writerow((row[0], row[1], row[58]))
+
+# Takes a parsed population file and ouputs a json mapping country names to populations
+def make_pop_json(pop_csv, pop_json):
+    pop_reader = csv.reader(pop_csv)
+    pop_dict = dict((row[0], row[2]) for row in pop_reader)
+    print(json.dumps(pop_dict, pop_json))
+    json.dump(pop_dict, pop_json)
+    print("here")
+
+
 
 # Web address for directory containing vaccination data.
 url_vax = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/"
@@ -36,15 +47,15 @@ while 1:
     locations = requests.get(url_vax + "locations.csv")
     if not locations:
         print("error: locations.csv not found")
-    us_state_vax = requests.get(url_vax + "us_state_vaccinations.csv")
+    us_state_vax = requests.get(url_vax + "us-state-vaccinations.csv")
     if not us_state_vax:
-        print("error: us-state-manufacturer.csv not found")
+        print("error: us-state-vaccinations.csv not found")
     full_data = requests.get(url_jhu + "full_data.csv")
     if not full_data:
-        print("error: us-state-manufacturer.csv not found")
+        print("error: full_data.csv not found")
     pop_fig_by_country = requests.get(url_pop + "population-figures-by-country-csv.csv")
-    if not full_data:
-        print("error: us-state-manufacturer.csv not found")
+    if not pop_fig_by_country:
+        print("error: population-figures-by-country-csv.csv not found")
 
     # Open every data file, including parsed files
     vax_file = open("vaccinations.csv", "w")
@@ -70,6 +81,13 @@ while 1:
     pop_fig_by_country_file_unparsed = open("population-figures-by-country-csv.csv", "r")
     population_parser(pop_fig_by_country_file_unparsed, pop_fig_by_country_file_parsed)
 
+    # Convert the population file to a json
+    pop_fig_by_country_file_parsed.close()
+    pop_fig_by_country_file_parsed = open("population-figures-by-country-csv-parsed.csv", "r")
+    pop_fig_by_country_json = open("../json_io_files/population-figures-by-country-json.json", "w")
+    make_pop_json(pop_fig_by_country_file_parsed, pop_fig_by_country_json)
+
+    # Close all files that are still open
     vax_file.close()
     vax_by_man_file.close()
     locations_file.close()
@@ -78,3 +96,6 @@ while 1:
     pop_fig_by_country_file_unparsed.close()
     pop_fig_by_country_file_parsed.close()
     vax_file_parsed.close()
+    pop_fig_by_country_json.close()
+
+    time.sleep(86400)
