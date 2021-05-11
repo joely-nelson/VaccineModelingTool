@@ -1,14 +1,16 @@
 // alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_days, vac_rate
 
 var default_params;
-var in1;
-var in2;
-var in3;
-var in4;
-var in5;
-var in6;
-var in7;
-var in8;
+var in1; // alpha
+var in2; // beta
+var in3; // epsilon
+var in4; // gamma
+var in5; // vac_start_day
+var in6; // uptake_per
+var in7; // num_vac_days
+var in8; // vac_rate
+var simResults;
+
 
 // get default parameters
 d3.json("http://localhost:8000/json_io_files/default_params.json").then(function(data){
@@ -146,9 +148,18 @@ function in8Update(input8) {
 // trigger model simulation
 function simulate() {
     console.log("Click");
-    var url = "http://localhost:8000/?input1="+in1+"&input2="+in2+"input3="+in3;
+    var url = "http://localhost:8000/?alpha="+in1+
+				     "&beta="+in2+
+                                     "&eps="+in3+
+				     "&gamma="+in4+
+                                     "&vac_start_day="+in5+
+				     "&uptake_per="+in6+
+                                     "&num_vac_days="+in7+
+                                     "&vac_rate="+in8;
+
     d3.json(url)
      .then(function(data) {
     console.log(data);
+    simResults = data;
     }); 
 }
