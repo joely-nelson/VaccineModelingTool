@@ -164,6 +164,7 @@ function simulate() {
      .then(function(data) {
     console.log(data);
     simResults = data;
+    createSlider(in5 + in7);
     update();
     }); 
     

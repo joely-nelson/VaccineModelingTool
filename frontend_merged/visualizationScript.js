@@ -52,8 +52,6 @@ function zoomed(event, d) {
 // ~~~~~~~~update map~~~~~~~~~~~~~
 function update() {
   //linking projection to the data
-  console.log("UPDATING");
-  console.log(simResults);
   map.selectAll('path')
   .data(countries_json.features)
   .enter()
@@ -61,18 +59,28 @@ function update() {
   .attr('d', geoPath)
   .style("fill", function(d, i) {
       var name = d.properties.ADMIN;
-      return colors[currentIndex][name];
+      var colorSelection = d3.scaleSequential(["#acb3bf", "blue"])
+      if (simResults == undefined) {
+          if (dummy_model_output[name] == undefined) {
+            return "black";
+          }
+          return colorSelection(dummy_model_output[name][1][currentIndex][3] / 100.0);
+      } else {
+          if (simResults[name] == undefined) {
+            return "black";
+          }
+          return colorSelection(simResults[name][1][currentIndex][0] / population[d.properties.ISO_A3]);
+      }
+    
     })
     .on("click", function(d, i) {
-      console.log(d);
       console.log(d.target.__data__.properties.ADMIN);
     })
   .append("svg:title")
   .text(function(d) { 
 
     var name = d.properties.ADMIN 
-    // if (simResults == undefined) {
-      console.log("using default values");
+    if (simResults == undefined) {
       if (dummy_model_output[name] == undefined) {
         return name;
       }
@@ -88,23 +96,21 @@ function update() {
       + "Vaccinated: " +  dummy_model_output[name][1][currentIndex][5] * 100 / population[d.properties.ISO_A3] + "%\n"
   
       return s; 
-    // } else {
-    //   console.log("using sim Results");
-    //   // console.log(simResults);
-    //   if (simResults[name] == undefined) {
-    //     return name;
-    //   }
-    //     var s =  name + "\n\n"
-    //   + "Population: " + population[d.properties.ISO_A3] + "\n"
-    //   + "Suceptible: " + simResults[name][1][currentIndex][0] * 100 + "%\n"
-    //   + "Exposed: " +  simResults[name][1][currentIndex][1] * 100 + "%\n"
-    //   + "Infected: " +  simResults[name][1][currentIndex][2] * 100  + "%\n"
-    //   + "Dead: " +  simResults[name][1][currentIndex][3] * 100  + "%\n"
-    //   + "Recovered: " +  simResults[name][1][currentIndex][4] * 100  + "%\n"
-    //   + "Vaccinated: " +  simResults[name][1][currentIndex][5] * 100  + "%\n"
-    //   // console.log(s);
-    //   return s;
-    // }
+    } else {
+      if (simResults[name] == undefined) {
+        return name;
+      }
+        var s =  name + "\n\n"
+      + "Population: " + population[d.properties.ISO_A3] + "\n"
+      + "Suceptible: " + simResults[name][1][currentIndex][0] * 100 / population[d.properties.ISO_A3]  + "%\n"
+      + "Exposed: " +  simResults[name][1][currentIndex][1] * 100 / population[d.properties.ISO_A3] + "%\n"
+      + "Infected: " +  simResults[name][1][currentIndex][2] * 100 / population[d.properties.ISO_A3]   + "%\n"
+      + "Dead: " +  simResults[name][1][currentIndex][3] * 100 / population[d.properties.ISO_A3]  + "%\n"
+      + "Recovered: " +  simResults[name][1][currentIndex][4] * 100 / population[d.properties.ISO_A3]  + "%\n"
+      + "Vaccinated: " +  simResults[name][1][currentIndex][5] * 100 / population[d.properties.ISO_A3]  + "%\n"
+      // console.log(s);
+      return s;
+    }
    });
   
 }
@@ -112,52 +118,38 @@ function update() {
 // initial call 
 update();
 
-
-
-
-
-//~~~~~~~slider code~~~~~~~~~~~~
-var slider = d3.sliderHorizontal()
-.min(0)
-.max(100) // size of the slider, may need adiditional info to adjust
-.step(1)
-.displayValue(true)
-.width(600)
-.on('onchange', (val) => {
-  console.log("SLIDER CHANGED");
-  if (val != currentIndex) {
+// Slider code
+function createSlider(n) {
+  console.log("creating slider with size" + n);
+  var slider = d3.sliderHorizontal()
+  .min(0)
+  .max(n) // size of the slider, may need adiditional info to adjust
+  .step(1)
+  .displayValue(true)
+  .width(600)
+  .on('onchange', (val) => {
+    if (val != currentIndex) {
       currentIndex = val;
-      map.selectAll("path")
-      .style("fill", function(d, i) {
-        var name = d.properties.ADMIN;
-        console.log("using slider to choose color");
+        
+      map.selectAll("path").remove();
+      update();
+    }
+  });
+  
 
-        var colorSelection = d3.scaleSequential(["#acb3bf", "blue"])
-      if (simResults == undefined) {
-          if (dummy_model_output[name] == undefined) {
-            return "black";
-          }
-          return colorSelection(dummy_model_output[name][1][currentIndex][3] / 100.0);
-      } else {
-          if (simResults[name] == undefined) {
-            return "black";
-          }
-          return colorSelection(simResults[name][1][currentIndex][5] / population[d.properties.ISO_A3]);
-      }
-      
-    });
-    update();
-  }
-  // d3.select('#value').text(val);
-  // console.log(val)
-});
+  d3.select("#slider").select("svg").remove();
 
-d3.select("#slider")
-.append("svg")
-.attr('width', 600)
-.attr('height', 100)
-.append('g')
-.attr('transform', 'translate(30,30)')
-.call(slider);
-// d3.select('#value').text(val);
-// console.log(val)
+
+
+  d3.select("#slider")
+  .append("svg")
+  .attr('width', 600)
+  .attr('height', 100)
+  .append('g')
+  .attr('transform', 'translate(30,30)')
+  .call(slider);
+}
+
+createSlider(20);
+
+
