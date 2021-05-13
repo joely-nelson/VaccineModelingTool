@@ -123,7 +123,7 @@ function createSlider(n) {
   console.log("creating slider with size" + n);
   var slider = d3.sliderHorizontal()
   .min(0)
-  .max(n) // size of the slider, may need adiditional info to adjust
+  .max(n - 1) // size of the slider, may need adiditional info to adjust
   .step(1)
   .displayValue(true)
   .width(600)
