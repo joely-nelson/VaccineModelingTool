@@ -3,6 +3,7 @@
 var map = d3.select("svg #map");
 var width = 1000;
 var height = 700;
+var currentCountryName = "not initialized yet";
 
 var population = (function () {
   var json = null;
@@ -74,7 +75,12 @@ function update() {
     
     })
     .on("click", function(d, i) {
-      console.log(d.target.__data__.properties.ADMIN);
+      currentCountryName = d.target.__data__.properties.ADMIN;
+      console.log(currentCountryName);
+      // open window??
+      popupWindow = window.open(
+        'popupWindow/popup.html','popUpWindow','height=454,width=300,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
+      // console.log(d.target.__data__.properties.ADMIN);
     })
   .append("svg:title")
   .text(function(d) { 
@@ -148,6 +154,9 @@ function createSlider(n) {
   .append('g')
   .attr('transform', 'translate(30,30)')
   .call(slider);
+
+  map.selectAll("path").remove();
+  update();
 }
 
 createSlider(20);
