@@ -62,17 +62,27 @@
     
             <button class="button button1" id="simulate">Simulate</button>
     
+            <b> Select data to view </b>  
+                <select id = "dataView" onchange = "changeDataView()">  
+                    <option>Population</option>  
+                    <option>Suceptible</option>  
+                    <option>Exposed</option>  
+                    <option>Infected</option>  
+                    <option>Dead</option>
+                    <option>Recovered</option>  
+                    <option>Vaccinated</option>  
+                </select>  
             <script src="io.js"></script>
         </div>
     
         <div class="column main">
-            <div id="slider" class="row slider"></div>
+            
             <div class="row"> 
                 <svg class="row map">
                     <g id="map"></g>
                 </svg> 
             </div>
-            
+            <div id="slider" class="row slider"></div>
             
             <script src='visualizationScript.js'></script>
         </div>

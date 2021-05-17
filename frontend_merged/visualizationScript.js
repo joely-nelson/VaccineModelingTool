@@ -4,6 +4,8 @@ var map = d3.select("svg #map");
 var width = 1000;
 var height = 700;
 var currentCountryName = "not initialized yet";
+var viewingOptions = {"Suceptible":0, "Exposed":1, "Infected":2, "Dead":3, "Recovered":4, "Vaccinated":5};
+var currentViewingOption = "Suceptible" // relates to index of above array
 
 var population = (function () {
   var json = null;
@@ -70,7 +72,9 @@ function update() {
           if (simResults[name] == undefined) {
             return "black";
           }
-          return colorSelection(simResults[name][1][currentIndex][0] / population[d.properties.ISO_A3]);
+          console.log("choosing color")
+          console.log(viewingOptions[currentViewingOption]);
+          return colorSelection(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
       }
     
     })
@@ -108,12 +112,12 @@ function update() {
       }
         var s =  name + "\n\n"
       + "Population: " + population[d.properties.ISO_A3] + "\n"
-      + "Suceptible: " + simResults[name][1][currentIndex][0] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Exposed: " +  simResults[name][1][currentIndex][1] * 100 / population[d.properties.ISO_A3] + "%\n"
-      + "Infected: " +  simResults[name][1][currentIndex][2] * 100 / population[d.properties.ISO_A3]   + "%\n"
-      + "Dead: " +  simResults[name][1][currentIndex][3] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Recovered: " +  simResults[name][1][currentIndex][4] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Vaccinated: " +  simResults[name][1][currentIndex][5] * 100 / population[d.properties.ISO_A3]  + "%\n"
+      + "Suceptible: " + (simResults[name][1][currentIndex][0] * 100 / population[d.properties.ISO_A3]).toFixed(2)  + "%\n"
+      + "Exposed: " +  (simResults[name][1][currentIndex][1] * 100 / population[d.properties.ISO_A3]).toFixed(8) + "%\n"
+      + "Infected: " +  (simResults[name][1][currentIndex][2] * 100 / population[d.properties.ISO_A3]).toFixed(8)   + "%\n"
+      + "Dead: " +  (simResults[name][1][currentIndex][3] * 100 / population[d.properties.ISO_A3]).toFixed(5)  + "%\n"
+      + "Recovered: " +  (simResults[name][1][currentIndex][4] * 100 / population[d.properties.ISO_A3]).toFixed(5)  + "%\n"
+      + "Vaccinated: " +  (simResults[name][1][currentIndex][5] * 100 / population[d.properties.ISO_A3]).toFixed(2)  + "%\n"
       // console.log(s);
       return s;
     }
@@ -155,6 +159,15 @@ function createSlider(n) {
   .attr('transform', 'translate(30,30)')
   .call(slider);
 
+  map.selectAll("path").remove();
+  update();
+}
+
+function changeDataView() {
+  var dropdownMenu = document.getElementById("dataView");
+  currentViewingOption = dropdownMenu.options[dropdownMenu.selectedIndex].text;
+
+  console.log(currentViewingOption);
   map.selectAll("path").remove();
   update();
 }
