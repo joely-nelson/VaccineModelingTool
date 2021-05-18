@@ -61,8 +61,9 @@ function update() {
   .append('path')
   .attr('d', geoPath)
   .style("fill", function(d, i) {
-      var name = d.properties.ADMIN;
+      var name = d.properties.ISO_A3;
       var colorSelection = d3.scaleSequential(["#acb3bf", "blue"])
+      var logColorSelector = d3.scalePow().exponent(0.1).range(["#acb3bf", "blue"]);
       if (simResults == undefined) {
           if (dummy_model_output[name] == undefined) {
             return "black";
@@ -72,8 +73,14 @@ function update() {
           if (simResults[name] == undefined) {
             return "black";
           }
-          console.log("choosing color")
-          console.log(viewingOptions[currentViewingOption]);
+          // "Exposed":1, "Infected":2, "Dead":3, "Recovered":4
+          if (currentViewingOption == "Exposed") {
+            return logColorSelector(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
+          } else if (currentViewingOption == "Dead") {
+              value = logColorSelector(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
+              return value;
+              // return logColorSelector(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
+          }
           return colorSelection(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
       }
     
@@ -89,14 +96,14 @@ function update() {
   .append("svg:title")
   .text(function(d) { 
 
-    var name = d.properties.ADMIN 
+    var name = d.properties.ISO_A3;
     if (simResults == undefined) {
       if (dummy_model_output[name] == undefined) {
         return name;
       }
       
 
-      var s =  name + "\n\n"
+      var s =  d.properties.ADMIN + "\n\n"
       + "Population: " + population[d.properties.ISO_A3] + "\n"
       + "Suceptible: " + dummy_model_output[name][1][currentIndex][0] * 100 / population[d.properties.ISO_A3]  + "%\n"
       + "Exposed: " +  dummy_model_output[name][1][currentIndex][1] * 100 / population[d.properties.ISO_A3]  + "%\n"
@@ -108,15 +115,15 @@ function update() {
       return s; 
     } else {
       if (simResults[name] == undefined) {
-        return name;
+        return d.properties.ADMIN;
       }
-        var s =  name + "\n\n"
+        var s =  d.properties.ADMIN + "\n\n"
       + "Population: " + population[d.properties.ISO_A3] + "\n"
       + "Suceptible: " + (simResults[name][1][currentIndex][0] * 100 / population[d.properties.ISO_A3]).toFixed(2)  + "%\n"
-      + "Exposed: " +  (simResults[name][1][currentIndex][1] * 100 / population[d.properties.ISO_A3]).toFixed(8) + "%\n"
-      + "Infected: " +  (simResults[name][1][currentIndex][2] * 100 / population[d.properties.ISO_A3]).toFixed(8)   + "%\n"
-      + "Dead: " +  (simResults[name][1][currentIndex][3] * 100 / population[d.properties.ISO_A3]).toFixed(5)  + "%\n"
-      + "Recovered: " +  (simResults[name][1][currentIndex][4] * 100 / population[d.properties.ISO_A3]).toFixed(5)  + "%\n"
+      + "Exposed: " +  Math.round(simResults[name][1][currentIndex][1])  + "\n"
+      + "Infected: " + Math.round(simResults[name][1][currentIndex][2]) + "\n"
+      + "Dead: " +  Math.round(simResults[name][1][currentIndex][3]) + "\n"
+      + "Recovered: " + Math.round(simResults[name][1][currentIndex][4]) + "\n"
       + "Vaccinated: " +  (simResults[name][1][currentIndex][5] * 100 / population[d.properties.ISO_A3]).toFixed(2)  + "%\n"
       // console.log(s);
       return s;

@@ -49,8 +49,8 @@
 
 .boundary {
     fill: none;
-    stroke: #fff;
-    stroke-width: 1px;
+    stroke: rgb(0, 0, 0);
+    stroke-width: 5px;
   }
 
 .row:after {

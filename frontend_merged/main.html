@@ -11,6 +11,12 @@
     <script src="./data/dummy_model_output.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
     <link rel="stylesheet" href="mainstyle.css">
+    <style>
+        path {
+            stroke: rgb(255, 255, 255);
+            stroke-width: 0.5px;
+        }
+    </style>
 </head>    
 
 <body>
@@ -63,9 +69,8 @@
             <button class="button button1" id="simulate">Simulate</button>
     
             <b> Select data to view </b>  
-                <select id = "dataView" onchange = "changeDataView()">  
-                    <option>Population</option>  
-                    <option>Suceptible</option>  
+                <select id = "dataView" onchange = "changeDataView()">   
+                    <option selected>Suceptible</option>  
                     <option>Exposed</option>  
                     <option>Infected</option>  
                     <option>Dead</option>
