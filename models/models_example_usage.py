@@ -15,15 +15,15 @@ def p(i):
 
 # Example of simulating America:
 # Vaccinations begin 419 days after the start of the pandemic. Simulation lasts for 100 days
-t, v = simulate_region(total_pop=330222422, 
+t, v = simulate_region4(total_pop=330222422, 
                     alpha=0.008, 
                     beta=0.27, 
                     eps=0.2,
                     gamma=0.2, 
                     vac_start_day=340, 
                     vac_rate=5e5, 
-                    uptake_per=0.7, 
-                    num_vac_days=90)   
+                    uptake_per=0.1, 
+                    num_vac_days=500)   
 
 # this is how to get out each of the individual values
 S,E,I,R,D,V = v.T
