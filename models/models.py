@@ -187,7 +187,7 @@ def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_d
         csv_dict = csv.DictReader(csv_file)
         for row in csv_dict:
             # get country and population for country. Ignore if data missing.
-            country = row['Country']
+            country = row['Country_Code']
             if row['Year_2016'] != '':
                 total_pop = int(row['Year_2016'])
 
@@ -200,3 +200,4 @@ def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_d
                 
     with open("./json_io_files/model_output.json", "w") as write_file:
         json.dump(ret_dict, write_file)
+        
