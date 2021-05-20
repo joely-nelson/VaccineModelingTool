@@ -498,7 +498,7 @@ def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_d
 
                 # simulate
                 t, v = simulate_region4(total_pop, alpha, beta, eps, gamma, 
-                            vac_start_day, vac_rate, uptake_per, num_vac_days)
+                            vac_start_day, vac_rate, uptake_per/100, num_vac_days)
 
                 # add results to the ret dict
                 ret_dict[country] = (list(t), [list(i) for i in v])
