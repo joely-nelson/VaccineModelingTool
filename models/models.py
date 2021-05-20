@@ -40,7 +40,7 @@ def seird_model(x, t, k):
     s, e, i, r, d = x
     n = x.sum()
     
-    alpha, beta, gamma, eps = k
+    alpha, beta, eps, gamma = k
     
     ds = (-beta * s * i / n)
     de = (beta * s * i / n) - (eps * e)
@@ -75,7 +75,7 @@ def seird_vac_model3(x, t, k):
     s, e, i, r, d, v = x
     n = x.sum()
     
-    alpha, beta, gamma, eps, vac_rate, uptake_pop = k
+    alpha, beta, eps, gamma, vac_rate, uptake_pop = k
     
     
     de = (beta * s * i / n) - (eps * e)
@@ -103,6 +103,7 @@ def seird_vac_model3(x, t, k):
     return ds, de, di, dr, dd, dv
 
 
+
 def simulate_region(total_pop, alpha, beta, eps, gamma, 
                     vac_start_day, vac_rate, uptake_per, num_vac_days):
     '''
@@ -112,8 +113,8 @@ def simulate_region(total_pop, alpha, beta, eps, gamma,
         - total_pop: the total population of that region at the start
         - alpha: % chance that an infected person will die while they are infected
         - beta: contact rate
-        - eps: rate at which someone goes from infected to recovered
-        - gamma: rate at which someone goes from exposed to recovered
+        - eps: rate of progression from exposed to infected
+        - gamma: rate of progression from infected to recovered
         - vac_rate: the rate at which vaccines occur
         - vac_start_day: the date that vaccinations begin
         - uptake_per: the % of the population willing to be vaccinated
@@ -197,7 +198,7 @@ def seird_vac_model4(x, t, k):
     # infection rate depends on all infected people
     i = i_1 + i_2
     
-    alpha, beta, gamma, eps, vac_rate = k
+    alpha, beta, eps, gamma, vac_rate = k
     
     # novax people people remain unchanged in their movements
     ds_1 = (-beta * s_1 * i / n)
@@ -234,8 +235,8 @@ def simulate_region4(total_pop, alpha, beta, eps, gamma,
         - total_pop: the total population of that region at the start
         - alpha: % chance that an infected person will die while they are infected
         - beta: contact rate
-        - eps: rate at which someone goes from infected to recovered
-        - gamma: rate at which someone goes from exposed to recovered
+        - eps: rate of progression from exposed to infected
+        - gamma: rate of progression from infected to recovered
         - vac_rate: the rate at which vaccines occur
         - vac_start_day: the date that vaccinations begin
         - uptake_per: the % of the population willing to be vaccinated
@@ -339,7 +340,7 @@ def seird_vac_model5(x, t, k):
     # infection rate depends on all infected people
     i = i_1 + i_2 + i_3
     
-    alpha, beta, gamma, eps, vac_rate, vac_eff_i, vac_eff_d = k
+    alpha, beta, eps, gamma, vac_rate, vac_eff_i, vac_eff_d = k
     
     # Group 1 (Unwilling/unable to be vaccinated)
     # novax people people remain unchanged in their movements
@@ -392,8 +393,8 @@ def simulate_region5(total_pop, alpha, beta, eps, gamma,
         - total_pop: the total population of that region at the start
         - alpha: % chance that an infected person will die while they are infected
         - beta: contact rate
-        - eps: rate at which someone goes from infected to recovered
-        - gamma: rate at which someone goes from exposed to recovered
+        - eps: rate of progression from exposed to infected
+        - gamma: rate of progression from infected to recovered
         - vac_rate: the rate at which vaccines occur
         - vac_start_day: the date that vaccinations begin
         - uptake_per: the % of the population willing to be vaccinated
