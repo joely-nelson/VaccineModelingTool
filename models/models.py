@@ -469,6 +469,51 @@ def simulate_region5(total_pop, alpha, beta, eps, gamma,
     return ts, result
 
 
+def simulate_region5_2(total_pop, mortality, reproduction_value, avg_exposed_days, avg_infected_days, 
+                    vac_start_day, vac_rate, uptake_per, num_vac_days,
+                    vac_eff_i, vac_eff_d):
+    '''
+    Given some model parameters, returns a time series of the different populations.
+    Uses seird_vac_model5 for vaccination.
+    ARGS:
+        - total_pop: the total population of that region at the start
+        - mortality: on an average, an infected person has this percentage of survival
+        - reproduction_value: how many people on average one infected person infects
+        - avg_exposed_days: number of days on average a person is in the exposed category
+        - avg_infected_days: number of days on average a person is in the infected category
+        - vac_rate: the rate at which vaccines occur
+        - vac_start_day: the date that vaccinations begin
+        - uptake_per: the % of the population willing to be vaccinated
+        - num_vac_days: number of days to model after the vaccinations begin
+        - vac_eff_i: the vaccine efficacy at preventing infection
+        - vac_eff_d: the vaccine efficacy at preventing death
+    RETURNS:
+        Two vectors
+        - first vector represents the time points. Call it t. It will start 
+          at 0 and increment by 1 until it reaches vac_start_day + num_vac_days
+        - second vector represents the number of people in each of the time points. 
+          Call it v. v[i] corresponds to the number of suceptible, exposed, infected,
+          recovered, dead, and vaccinatied individuals at the date t[i]. v[i] is another
+          array of length 6.
+              v[i][0]: number suceptible individuals
+              v[i][1]: number exposed individuals
+              v[i][2]: number infected individuals
+              v[i][3]: number dead individuals
+              v[i][4]: number recovered individuals
+              v[i][5]: number vaccinated individuals
+    '''
+    # converting parameters given by user into alpha, beta, eps, gamma
+    
+    eps = 1/avg_exposed_days
+    gamma = 1/avg_infected_days    
+    alpha = mortality * gamma
+    beta = reproduction_value * gamma
+    
+    return simulate_region5(total_pop, alpha, beta, eps, gamma, 
+                    vac_start_day, vac_rate, uptake_per, num_vac_days,
+                    vac_eff_i, vac_eff_d)
+
+
 def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_days, vac_rate):
     '''
     Simulates the entire world given parameters from files.
