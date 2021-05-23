@@ -1,0 +1,19 @@
+{
+    "840" : {
+        "ISO": "840",
+        "Name": "United States of America",
+        "r": "0.99",
+        "mortality": "10",
+        "vac_rate": "1000",
+        "vaccine_type": "Pfizer"
+    },
+
+    "566" : {
+        "ISO": "566",
+        "Name": "Nigeria",
+        "r": "0.37",
+        "mortality": "5",
+        "vac_rate": "20",
+        "vaccine_type": "Moderna"
+    }
+}

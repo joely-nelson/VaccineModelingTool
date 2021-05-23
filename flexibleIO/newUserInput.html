@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vaccine Modeling Tool</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="mainstyle.css">
+</head>    
+
+<body>
+    <header class="header"> 
+        <h1>Vacine Modeling Tool</h1> 
+    </header>
+    
+    <div class="row">
+        <section class = "column left">
+            <div class="scrollable" id=globalParams>
+                <p>Vaccine Type:</p>
+                <form>
+                    <input class="radio" type="radio" id="default_radio_0" name="vactype" checked>
+                    <label for="default_radio_0">Default</label><br>
+                    <input class="radio" type="radio" id="custom_radio_0" name="vactype">
+                    <label for="custom_radio_0">Custom Global</label>
+                    <select class='custom' id="input_0" name="vaccines"> </select> <br>
+                </form>
+            </div>
+            <button class="button button1" id="simulate">Simulate</button>
+            <button class="button button2" id="Reset">Reset</button>
+            <script src="io.js"></script>
+            <script src="newUserJS.js"></script>
+        </section>
+    
+        <section class="column main">
+            <h3>Choropleth Placeholder</h3>
+            <svg>
+                <g id="map"></g>
+            </svg>
+            <div id="slider"></div>
+        </section>
+    </div>
+    
+    <footer>
+        <p> Temp </p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+    "Rate of Transmission" : {
+        "type":"number",
+        "min":"0.0",
+        "max":"1.0",
+        "step":"0.01",
+        "default":"0",
+        "mapping":"r"
+    },
+
+    "Mortality" : {
+        "type":"number",
+        "min":"0",
+        "max":"100",
+        "step":"1",
+        "default":"0",
+        "mapping":"mortality"
+    },
+
+    "Vaccination Rate" : {
+        "type":"number",
+        "min":"0.0",
+        "max":"100.0",
+        "step":"0.1",
+        "default":"0",
+        "mapping":"vac_rate"
+    }
+}
