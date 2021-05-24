@@ -67,10 +67,11 @@ clear: both;
 
 .row.map {
     height: 1000px;
-    width: 1000px;
+    /* width: 1000px; */
 }
 
 .row.slider {
+    margin-left: 250px;
     height: 150px;
 }
 
@@ -78,6 +79,7 @@ clear: both;
   /* position: absolute; */
   /* left: 50%; */
   /* margin-left: 300px; */
+  
   width: 800;
   height: 75;
 }

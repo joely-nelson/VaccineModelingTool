@@ -4,6 +4,7 @@ var map = d3.select("svg #map");
 var width = 1000;
 var height = 700;
 var currentCountryName = "not initialized yet";
+var currentCountryCode = "";
 var viewingOptions = {"Suceptible":0, "Exposed":1, "Infected":2, "Dead":3, "Recovered":4, "Vaccinated":5};
 var currentViewingOption = "Suceptible" // relates to index of above array
 
@@ -26,7 +27,9 @@ var currentIndex = 0;
 
 // creating the projection type
 var albersProjection = d3.geoMercator()
-.scale((width - 3) / (2 * Math.PI))
+.scale(250)
+.center([21.03, 45.659])
+// .scale((width - 3) / (2 * Math.PI))
 .translate([width / 2, height / 2]);
 
 var svg = d3.select('body').select('svg')
@@ -62,8 +65,9 @@ function update() {
   .attr('d', geoPath)
   .style("fill", function(d, i) {
       var name = d.properties.ISO_A3;
-      var colorSelection = d3.scaleSequential(["#acb3bf", "blue"])
-      var logColorSelector = d3.scalePow().exponent(0.1).range(["#acb3bf", "blue"]);
+      var colorScale = ["#fff7fb", "#08306b"]
+      var colorSelection = d3.scaleSequential(colorScale) // used for normal output values
+      var logColorSelector = d3.scalePow().exponent(0.1).range(colorScale); // use for smaller output values
       if (simResults == undefined) {
           if (dummy_model_output[name] == undefined) {
             return "black";
@@ -74,20 +78,23 @@ function update() {
             return "black";
           }
           // "Exposed":1, "Infected":2, "Dead":3, "Recovered":4
-          if (currentViewingOption == "Exposed") {
+          if (currentViewingOption == "Exposed" || currentViewingOption == "Dead" || currentViewingOption == "Infected" || currentViewingOption == "Recovered") {
             return logColorSelector(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
-          } else if (currentViewingOption == "Dead") {
-              value = logColorSelector(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
-              return value;
-              // return logColorSelector(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
-          }
+          } 
+          // console.log("name: " + d.properties.ADMIN);
+          // console.log("country code:" + name);
+          // console.log("result: " + simResults[name][1][currentIndex][viewingOptions[currentViewingOption]]);
+          // console.log("population: " + population[d.properties.ISO_A3]);
+          // console.log("");
           return colorSelection(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
       }
     
     })
     .on("click", function(d, i) {
       currentCountryName = d.target.__data__.properties.ADMIN;
+      currentCountryCode = d.target.__data__.properties.ISO_A3;
       console.log(currentCountryName);
+      console.log(currentCountryCode);
       // open window??
       popupWindow = window.open(
         'popupWindow/popup.html','popUpWindow','height=454,width=300,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
@@ -150,6 +157,7 @@ function createSlider(n) {
         
       map.selectAll("path").remove();
       update();
+      svg.call(zoom);
     }
   });
   
