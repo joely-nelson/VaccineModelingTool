@@ -1,13 +1,15 @@
 // var width = window.innerWidth;
 // var height = window.innerHeight;
 var map = d3.select("svg #map");
-var width = 1000;
-var height = 700;
-var currentCountryName = "not initialized yet";
-var currentCountryCode = "";
+var width = 1000; // width of map
+var height = 700; // height of map
+var currentCountryName = "not initialized yet"; // holds value of clicked country name
+var currentCountryCode = ""; // holds value of clicked country code
 var viewingOptions = {"Suceptible":0, "Exposed":1, "Infected":2, "Dead":3, "Recovered":4, "Vaccinated":5};
 var currentViewingOption = "Suceptible" // relates to index of above array
+var currentTimeIndex = 0; // represent current time step slider is on
 
+// reads in population data from file.
 var population = (function () {
   var json = null;
   $.ajax({
@@ -23,7 +25,7 @@ var population = (function () {
 })();
 
 
-var currentIndex = 0;
+
 
 // creating the projection type
 var albersProjection = d3.geoMercator()
@@ -44,7 +46,7 @@ const zoom = d3.zoom()
       .on('zoom', zoomed);
 
 
-svg.call(zoom);
+
 
 function zoomed(event, d) {
     map.selectAll('path') // To prevent stroke width from scaling
@@ -64,33 +66,24 @@ function update() {
   .append('path')
   .attr('d', geoPath)
   .style("fill", function(d, i) {
-      var name = d.properties.ISO_A3;
+      var countryCode = d.properties.ISO_A3;
       var colorScale = ["#fff7fb", "#08306b"]
       var colorSelection = d3.scaleSequential(colorScale) // used for normal output values
       var logColorSelector = d3.scalePow().exponent(0.1).range(colorScale); // use for smaller output values
       if (simResults == undefined) {
-          if (dummy_model_output[name] == undefined) {
-            return "black";
-          }
-          return colorSelection(dummy_model_output[name][1][currentIndex][3] / 100.0);
+        if (dummy_model_output[countryCode] == undefined) {
+          return "black";
+        }
+        return colorSelection(dummy_model_output[countryCode][1][currentTimeIndex][3] / 100.0);
+      } else if (simResults[countryCode] == undefined) {
+        return "black";
+      } else if (currentViewingOption == "Exposed" || currentViewingOption == "Dead" || currentViewingOption == "Infected" || currentViewingOption == "Recovered") {
+        return logColorSelector(simResults[countryCode][1][currentTimeIndex][viewingOptions[currentViewingOption]] / population[countryCode]);
       } else {
-          if (simResults[name] == undefined) {
-            return "black";
-          }
-          // "Exposed":1, "Infected":2, "Dead":3, "Recovered":4
-          if (currentViewingOption == "Exposed" || currentViewingOption == "Dead" || currentViewingOption == "Infected" || currentViewingOption == "Recovered") {
-            return logColorSelector(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
-          } 
-          // console.log("name: " + d.properties.ADMIN);
-          // console.log("country code:" + name);
-          // console.log("result: " + simResults[name][1][currentIndex][viewingOptions[currentViewingOption]]);
-          // console.log("population: " + population[d.properties.ISO_A3]);
-          // console.log("");
-          return colorSelection(simResults[name][1][currentIndex][viewingOptions[currentViewingOption]] / population[d.properties.ISO_A3]);
+        return colorSelection(simResults[countryCode][1][currentTimeIndex][viewingOptions[currentViewingOption]] / population[countryCode]);
       }
-    
     })
-    .on("click", function(d, i) {
+    .on("click", function(d, i) { // handles on click functionality
       currentCountryName = d.target.__data__.properties.ADMIN;
       currentCountryCode = d.target.__data__.properties.ISO_A3;
       console.log(currentCountryName);
@@ -98,49 +91,46 @@ function update() {
       // open window??
       popupWindow = window.open(
         'popupWindow/popup.html','popUpWindow','height=454,width=300,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
-      // console.log(d.target.__data__.properties.ADMIN);
     })
   .append("svg:title")
-  .text(function(d) { 
+  .text(function(d) { // handles the hover functionality
 
-    var name = d.properties.ISO_A3;
+    var countryCode = d.properties.ISO_A3;
+    var countryName = d.properties.ADMIN;
     if (simResults == undefined) {
-      if (dummy_model_output[name] == undefined) {
-        return name;
+      if (dummy_model_output[countryCode] == undefined) {
+        return countryCode;
       }
-      
-
-      var s =  d.properties.ADMIN + "\n\n"
+      var s =  countryName + "\n\n"
       + "Population: " + population[d.properties.ISO_A3] + "\n"
-      + "Suceptible: " + dummy_model_output[name][1][currentIndex][0] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Exposed: " +  dummy_model_output[name][1][currentIndex][1] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Infected: " +  dummy_model_output[name][1][currentIndex][2] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Dead: " +  dummy_model_output[name][1][currentIndex][3] * 100 / population[d.properties.ISO_A3] + "%\n"
-      + "Recovered: " +  dummy_model_output[name][1][currentIndex][4] * 100 / population[d.properties.ISO_A3] + "%\n"
-      + "Vaccinated: " +  dummy_model_output[name][1][currentIndex][5] * 100 / population[d.properties.ISO_A3] + "%\n"
-  
+      + "Suceptible: " + dummy_model_output[countryCode][1][currentTimeIndex][0] * 100 / population[d.properties.ISO_A3]  + "%\n"
+      + "Exposed: " +  dummy_model_output[countryCode][1][currentTimeIndex][1] * 100 / population[d.properties.ISO_A3]  + "%\n"
+      + "Infected: " +  dummy_model_output[countryCode][1][currentTimeIndex][2] * 100 / population[d.properties.ISO_A3]  + "%\n"
+      + "Dead: " +  dummy_model_output[countryCode][1][currentTimeIndex][3] * 100 / population[d.properties.ISO_A3] + "%\n"
+      + "Recovered: " +  dummy_model_output[countryCode][1][currentTimeIndex][4] * 100 / population[d.properties.ISO_A3] + "%\n"
+      + "Vaccinated: " +  dummy_model_output[countryCode][1][currentTimeIndex][5] * 100 / population[d.properties.ISO_A3] + "%\n";
+
       return s; 
     } else {
-      if (simResults[name] == undefined) {
-        return d.properties.ADMIN;
+      if (simResults[countryCode] == undefined) {
+        return countryName;
       }
-        var s =  d.properties.ADMIN + "\n\n"
+      var s =  countryName + "\n\n"
       + "Population: " + population[d.properties.ISO_A3] + "\n"
-      + "Suceptible: " + (simResults[name][1][currentIndex][0] * 100 / population[d.properties.ISO_A3]).toFixed(2)  + "%\n"
-      + "Exposed: " +  Math.round(simResults[name][1][currentIndex][1])  + "\n"
-      + "Infected: " + Math.round(simResults[name][1][currentIndex][2]) + "\n"
-      + "Dead: " +  Math.round(simResults[name][1][currentIndex][3]) + "\n"
-      + "Recovered: " + Math.round(simResults[name][1][currentIndex][4]) + "\n"
-      + "Vaccinated: " +  (simResults[name][1][currentIndex][5] * 100 / population[d.properties.ISO_A3]).toFixed(2)  + "%\n"
-      // console.log(s);
+      + "Suceptible: " + (simResults[countryCode][1][currentTimeIndex][0] * 100 / population[d.properties.ISO_A3]).toFixed(2)  + "%\n"
+      + "Exposed: " +  Math.round(simResults[countryCode][1][currentTimeIndex][1])  + "\n"
+      + "Infected: " + Math.round(simResults[countryCode][1][currentTimeIndex][2]) + "\n"
+      + "Dead: " +  Math.round(simResults[countryCode][1][currentTimeIndex][3]) + "\n"
+      + "Recovered: " + Math.round(simResults[countryCode][1][currentTimeIndex][4]) + "\n"
+      + "Vaccinated: " +  (simResults[countryCode][1][currentTimeIndex][5] * 100 / population[d.properties.ISO_A3]).toFixed(2)  + "%\n";
+
       return s;
     }
    });
   
 }
 
-// initial call 
-update();
+
 
 // Slider code
 function createSlider(n) {
@@ -152,8 +142,8 @@ function createSlider(n) {
   .displayValue(true)
   .width(600)
   .on('onchange', (val) => {
-    if (val != currentIndex) {
-      currentIndex = val;
+    if (val != currentTimeIndex) {
+      currentTimeIndex = val;
         
       map.selectAll("path").remove();
       update();
@@ -186,6 +176,11 @@ function changeDataView() {
   map.selectAll("path").remove();
   update();
 }
+
+svg.call(zoom);
+
+// initial call 
+update();
 
 createSlider(20);
 
