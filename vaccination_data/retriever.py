@@ -24,12 +24,6 @@ while 1:
     vax_by_man = requests.get(url_vax + "vaccinations-by-manufacturer.csv")
     if not vax_by_man:
         print("error: vaccinations-by-manufacturer.csv not found")
-    locations = requests.get(url_vax + "locations.csv")
-    if not locations:
-        print("error: locations.csv not found")
-    us_state_vax = requests.get(url_vax + "us_state_vaccinations.csv")
-    if not us_state_vax:
-        print("error: us-state-vaccinations.csv not found")
     full_data = requests.get(url_jhu + "full_data.csv")
     if not full_data:
         print("error: full_data.csv not found")
@@ -37,11 +31,9 @@ while 1:
     if not pop_fig_by_country:
         print("error: population-figures-by-country-csv.csv not found")
 
-    # Open every data file, including parsed files
+    # Open every csv data file, including parsed files
     vax_file = open("vaccinations.csv", "w")
     vax_by_man_file = open("vaccinations-by-manufacturer.csv", "w")
-    locations_file = open("locations.csv", "w")
-    us_state_vax_file = open("us-state-vaccinations.csv", "w")
     full_data_file = open("full-data.csv", "w")
     pop_fig_by_country_file = open("population-figures-by-country-csv.csv", "w")
     pop_fig_by_country_file_parsed = open("population-figures-by-country-csv-parsed.csv", "w")
@@ -52,8 +44,6 @@ while 1:
     # Now, write all unparsed files.
     vax_file.write(vax.text.encode("utf-8"))
     vax_by_man_file.write(vax_by_man.text.encode("utf-8"))
-    locations_file.write(locations.text.encode("utf-8"))
-    us_state_vax_file.write(us_state_vax.text.encode("utf-8"))
     full_data_file.write(full_data.text.encode("utf-8"))
     pop_fig_by_country_file.write(pop_fig_by_country.text.encode("utf-8"))
 
@@ -104,11 +94,25 @@ while 1:
     iso_json = open("../json_io_files/countries-to-iso.json", "w")
     json_maker.make_iso_json(pop_fig_by_country_file_parsed, vax_file_parsed, iso_json)
 
+    # Make master json mapping iso codes to a list containing population, vaccinations,
+    # deaths, and cases, in that order.
+    pop_fig_by_country_json.close()
+    vax_json.close()
+    death_json.close()
+    case_json.close()
+    iso_json.close()
+    pop_fig_by_country_json = open("../json_io_files/population-figures-by-country-json.json", "r")
+    vax_json = open("../json_io_files/vaccinations.json", "r")
+    death_json = open("../json_io_files/weekly-deaths.json", "r")
+    case_json = open("../json_io_files/weekly-cases.json", "r")
+    iso_json = open("../json_io_files/countries-to-iso.json", "r")
+    master_json = open("../json_io_files/master-json.json", "w")
+    json_maker.make_master_json(pop_fig_by_country_json, vax_json, 
+        death_json, case_json, iso_json, master_json)
+
     # Close all files that are still open
     vax_file_unparsed.close()
     vax_by_man_file.close()
-    locations_file.close()
-    us_state_vax_file.close()
     full_data_file_unparsed.close()
     death_file.close()
     case_file.close()
