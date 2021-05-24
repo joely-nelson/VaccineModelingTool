@@ -539,8 +539,8 @@ def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_d
         for row in csv_dict:
             # get country and population for country. Ignore if data missing.
             country = row['Country_Code']
-            if row['Year_2016'] != '':
-                total_pop = int(row['Year_2016'])
+            if row['population'] != '':
+                total_pop = int(row['population'])
 
                 # simulate
                 t, v = simulate_region4(total_pop, alpha, beta, eps, gamma, 
