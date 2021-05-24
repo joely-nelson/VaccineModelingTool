@@ -90,7 +90,7 @@ function update() {
       console.log(currentCountryCode);
       // open window??
       popupWindow = window.open(
-        'popupWindow/popup.html','popUpWindow','height=454,width=300,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
+        'popupWindow/popup.html','popUpWindow','height=454,width=500,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
     })
   .append("svg:title")
   .text(function(d) { // handles the hover functionality
