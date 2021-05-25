@@ -14,14 +14,14 @@
     <style>
         path {
             stroke: rgb(0, 0, 0);
-            stroke-width: 0.4px;
+            stroke-width: 0.5px;
         }
     </style>
 </head>    
 
 <body>
     <header class="header"> 
-        <h1>Vacine Modeling Tool</h1> 
+        <h1>Vaccine Modeling Tool</h1> 
     </header>
     
     <div class="row">
@@ -39,7 +39,7 @@
             <button class="button button1" id="simulate">Simulate</button>
             <button class="button button2" id="Reset">Reset</button>
             <script src="io.js"></script>
-            
+
             <b> Select data to view </b>  
                 <select id = "dataView" onchange = "changeDataView()">   
                     <option selected>Suceptible</option>  
@@ -59,6 +59,7 @@
                 </svg> 
             </div>
             <div id="slider" class="row slider"></div>
+            <p class="slider title"> Time </p>
             
             <script src='visualizationScript.js'></script>
         </div>
