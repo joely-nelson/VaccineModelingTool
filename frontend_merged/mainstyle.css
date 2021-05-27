@@ -24,6 +24,11 @@
     /* height: 300px; Should be removed. Only for demonstration */
 }
 
+.scrollable {
+    height: 300px;
+    overflow-y: auto;
+}
+
 .label {
     border: none;
     color: navy;
@@ -45,6 +50,7 @@
 }
   
 .button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #194dbd;} /* Blue */
 
 
 .boundary {

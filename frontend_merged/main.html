@@ -26,7 +26,10 @@
     
     <div class="row">
         <div class = "column left">
+            <h3>Global Parameter Pane</h1>
             <div class="scrollable" id=globalParams>
+                <label for="sim_days_input">Number of Days to Simulate: </label>
+                <input type="number" min="100" max="5000" step="1" placeholder="365" id="sim_days_input"> <br>
                 <p>Vaccine Type:</p>
                 <form>
                     <input class="radio" type="radio" id="default_radio_0" name="vactype" checked>
@@ -37,7 +40,7 @@
                 </form>
             </div>
             <button class="button button1" id="simulate">Simulate</button>
-            <button class="button button2" id="Reset">Reset</button>
+            <button class="button button2" id="reset">Reset</button>
             <script src="io.js"></script>
             
             <b> Select data to view </b>  
