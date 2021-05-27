@@ -3,31 +3,43 @@ import socketserver
 import urllib.parse as p
 import json
 import models.models as m
+import cgi
 
-class VaccineModelingHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        # parse url
-        params = p.parse_qs(p.urlparse(self.path).query)
-        print(params)
+class VaccineModelingHttpRequestHandler(http.server.SimpleHTTPRequestHandler):    
+    
+    def do_POST(self):
+        # error checking
+        ctype, pdict = cgi.parse_header(self.headers.get('content-type'))
+        
+        # refuse to receive non-json content
+        if ctype != 'application/json':
+            self.send_response(400)
+            self.end_headers()
+            return
+            
+        # read the custom country by country params into dictionary
+        length = int(self.headers.get('content-length'))
+        customParams = json.loads(self.rfile.read(length))
 
-        if not params:
-            # if url has no params, server desired file
-            return http.server.SimpleHTTPRequestHandler.do_GET(self)
+        # extract num days for simulation
+        url_query = p.parse_qs(p.urlparse(self.path).query)
+        numDays = url_query["numDays"][0]
 
-        else:
-            alpha = float(params["alpha"][0])
-            beta = float(params["beta"][0])
-            eps = float(params["eps"][0])
-            gamma = float(params["gamma"][0])
-            vac_start_day = int(params["vac_start_day"][0])
-            uptake_per = float(params["uptake_per"][0])
-            num_vac_days = int(params["num_vac_days"][0])
-            vac_rate = float(params["vac_rate"][0])
 
-            m.simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_days, vac_rate)
+        # TODO: simulationResults = m.simulate_world(customParams, numDays)
 
-            self.path = './json_io_files/model_output.json'
-            return http.server.SimpleHTTPRequestHandler.do_GET(self)
+        simulationResults = {'hello': 'world', 'received': 'ok'}
+        resultBytes = bytes(json.dumps(simulationResults), "utf8")
+        
+        # return data
+        self.protocol_version = "HTTP/1.1"
+        self.send_response(200)
+        self.send_header("Content-Length", len(resultBytes))
+        self.send_header("Content-Type", "application/json; charset=UTF-8")
+        self.end_headers()
+
+        self.wfile.write(resultBytes)
+        return
 
 # Create an object of the above class
 handler_object = VaccineModelingHttpRequestHandler

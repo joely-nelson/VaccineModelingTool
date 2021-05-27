@@ -18,12 +18,14 @@ var numDaysSim = 365;
 var numParams;
 
 // initialize default and custom data structures
+// TODO: change path of default params to master json
 d3.json("http://localhost:8000/default_params.json").then(function(data) {
     defaultParams = data;
     customParams = JSON.parse(JSON.stringify(defaultParams)); // deep copy
 });
 
 // Load default simulation output
+// TODO: change path to default output
 d3.json("http://localhost:8000/json_io_files/default_output.json").then(function(data) {
     defaultSimOutput = data;
     simResults = defaultSimOutput;
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     });
 
-    // TODO: load global defaults
+    // load global defaults
     d3.json("http://localhost:8000/configuration_files/global_defaults.json").then(function(defaults) {
         globalDefaults = defaults;
     });
@@ -164,19 +166,18 @@ function simDaysUpdate(input) {
 
 // trigger model simulation
 function simulate() {
-    console.log("Click");
-    // TODO:
-    // submit post request with customParams json and number of days to simulate
-    var url = "http://localhost:8000/simulate=true";
-    d3.json(url)
+    var url = "http://localhost:8000/?numDays=" + numDaysSim;
+    d3.json(url, {
+        method:"POST",
+        body: JSON.stringify(customParams),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
         .then(function(data) {
             console.log(data);
-            customSimOutput = data;
             simResults = data;
-            // NOTE: hard coded for now
-            createSlider(100);
+            createSlider(100); // NOTE: Hard coded for now
             update();
-        });  
+        });
 }
 
 function reset() {
