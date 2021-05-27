@@ -29,8 +29,8 @@ var population = (function () {
 
 // creating the projection type
 var albersProjection = d3.geoMercator()
-.scale(250)
-.center([21.03, 45.659])
+.scale(400)
+.center([-60, 45.659])
 // .scale((width - 3) / (2 * Math.PI))
 .translate([width / 2, height / 2]);
 
