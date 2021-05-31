@@ -15,6 +15,7 @@
 
 .main {
     flex: 75%;
+    
 } 
 
 .column {
@@ -22,6 +23,11 @@
     padding: 10px;
     /* height: 1000px */
     /* height: 300px; Should be removed. Only for demonstration */
+}
+
+.scrollable {
+    height: 300px;
+    overflow-y: auto;
 }
 
 .label {
@@ -45,6 +51,7 @@
 }
   
 .button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #194dbd;} /* Blue */
 
 
 .boundary {
@@ -67,12 +74,16 @@ clear: both;
 
 .row.map {
     height: 1000px;
+    border-color: gray;
+    border-style: solid;
     /* width: 1000px; */
 }
 
 .row.slider {
-    margin-left: 10%;
-    height: 150px;
+    margin: auto;
+    width: 40%;
+    /*margin-left: 10%;*/
+    height: 80px;
 }
 
 #slider {
@@ -80,8 +91,11 @@ clear: both;
   /* left: 50%; */
   /* margin-left: 300px; */
   
-  width: 800;
+  /* width: 800; */
   height: 75;
+}
+.slider.title {
+    text-align: center;
 }
 
 svg {

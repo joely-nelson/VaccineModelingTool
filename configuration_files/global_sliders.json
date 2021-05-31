@@ -1,0 +1,46 @@
+{
+    "Vaccination Start (days after start of pandemic" : {
+        "type":"number",
+        "min":"0",
+        "max":"1000",
+        "step":"1",
+        "default":"0",
+        "mapping":"vac_start"
+    },
+
+    "Vaccination Rate (vac/day)" : {
+        "type":"number",
+        "min":"0.0",
+        "max":"100.0",
+        "step":"0.1",
+        "default":"0",
+        "mapping":"vac_rate"
+    }, 
+    
+    "Vaccine Uptake (%)" : {
+        "type":"number",
+        "min":"0.0",
+        "max":"100.0",
+        "step":"0.1",
+        "default":"0",
+        "mapping":"vac_uptake"
+    },
+
+    "Reproduction Number" : {
+        "type":"number",
+        "min":"0.0",
+        "max":"1.0",
+        "step":"0.01",
+        "default":"0",
+        "mapping":"r"
+    },
+
+    "Mortality" : {
+        "type":"number",
+        "min":"0",
+        "max":"100",
+        "step":"1",
+        "default":"0",
+        "mapping":"mortality"
+    }
+}

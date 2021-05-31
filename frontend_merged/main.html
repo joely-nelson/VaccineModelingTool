@@ -14,60 +14,35 @@
     <style>
         path {
             stroke: rgb(0, 0, 0);
-            stroke-width: 0.4px;
+            stroke-width: 0.5px;
         }
     </style>
 </head>    
 
 <body>
     <header class="header"> 
-        <h1>Vacine Modeling Tool</h1> 
+        <h1>Vaccine Modeling Tool</h1> 
     </header>
     
     <div class="row">
         <div class = "column left">
-            <p>
-                <label for="input1"> alpha = <span id="input1-value"> </span> </label>
-                <input type="number" min="0.0" max="100.0" step="0.1" value="0" id="input1">
-            </p>
-    
-            <p>
-                <label for="input2"> beta = <span id="input2-value"> </span> </label>
-                <input type="number" min="0.0" max="100.0" step="0.1" value="0" id="input2">
-            </p>
-
-	    <p>
-                <label for="input3"> epsilon = <span id="input3-value"> </span> </label>
-                <input type="number" min="0.0" max="1.0" step="0.001" value="0" id="input3">
-            </p>
-
-            <p>
-                <label for="input4"> gamma = <span id="input4-value"> </span> </label>
-                <input type="number" min="0.0" max="1.0" step="0.001" value="0" id="input4">
-            </p>
-
-	    <p>
-                <label for="input5"> vaccination start date = <span id="input5-value"> </span> </label>
-                <input type="number" min="1" max="1000" step="1" value="0" id="input5">
-            </p>
-
-            <p>
-                <label for="input6"> uptake % = <span id="input6-value"> </span> </label>
-                <input type="number" min="0.0" max="100.0" step="0.1" value="0" id="input6">
-            </p>
-
-	    <p>
-                <label for="input7"> number of vaccination days = <span id="input7-value"> </span> </label>
-                <input type="number" min="0" max="1000" step="1" value="0" id="input7">
-            </p>
-
-            <p>
-                <label for="input8"> vaccination rate = <span id="input8-value"> </span> </label>
-                <input type="number" min="0.0" max="100.0" step="0.1" value="0" id="input8">
-            </p>
-    
+            <h3>Global Parameter Pane</h1>
+            <div class="scrollable" id=globalParams>
+                <label for="sim_days_input">Number of Days to Simulate: </label>
+                <input type="number" min="100" max="5000" step="1" placeholder="365" id="sim_days_input"> <br>
+                <p>Vaccine Type:</p>
+                <form>
+                    <input class="radio" type="radio" id="default_radio_0" name="vactype" checked>
+                    <label for="default_radio_0">Default</label><br>
+                    <input class="radio" type="radio" id="custom_radio_0" name="vactype">
+                    <label for="custom_radio_0">Custom Global</label>
+                    <select class='custom' id="input_0" name="vaccines"> </select> <br>
+                </form>
+            </div>
             <button class="button button1" id="simulate">Simulate</button>
-    
+            <button class="button button2" id="reset">Reset</button>
+            <script src="io.js"></script>
+
             <b> Select data to view </b>  
                 <select id = "dataView" onchange = "changeDataView()">   
                     <option selected>Suceptible</option>  
@@ -77,7 +52,6 @@
                     <option>Recovered</option>  
                     <option>Vaccinated</option>  
                 </select>  
-            <script src="io.js"></script>
         </div>
     
         <div class="column main">
@@ -88,14 +62,11 @@
                 </svg> 
             </div>
             <div id="slider" class="row slider"></div>
+            <p class="slider title"> Time </p>
             
             <script src='visualizationScript.js'></script>
         </div>
     </div>
-    
-    <footer>
-        <p> Temp </p>
-    </footer>
 
 </body>
 </html>
