@@ -1,224 +1,227 @@
 location,iso_code,weekly_vaccinations
-Afghanistan,AFG,6679
-Africa,OWID_AFR,475672
-Albania,ALB,8480
+Afghanistan,AFG,5849
+Africa,OWID_AFR,513621
+Albania,ALB,7446
 Algeria,DZA,3748
 Andorra,AND,224
-Angola,AGO,11097
+Angola,AGO,18902
 Anguilla,AIA,253
-Antigua and Barbuda,ATG,621
-Argentina,ARG,145604
-Armenia,ARM,807
-Aruba,ABW,1845
-Asia,OWID_ASI,17665426
-Australia,AUS,68085
-Austria,AUT,67080
-Azerbaijan,AZE,21922
+Antigua and Barbuda,ATG,1018
+Argentina,ARG,143161
+Armenia,ARM,1118
+Aruba,ABW,2213
+Asia,OWID_ASI,21303131
+Australia,AUS,78241
+Austria,AUT,67684
+Azerbaijan,AZE,31092
 Bahamas,BHS,1180
-Bahrain,BHR,13669
-Bangladesh,BGD,33521
-Barbados,BRB,1585
-Belarus,BLR,16821
-Belgium,BEL,100116
-Belize,BLZ,1634
+Bahrain,BHR,17295
+Bangladesh,BGD,34144
+Barbados,BRB,1369
+Belarus,BLR,16308
+Belgium,BEL,92750
+Belize,BLZ,1597
 Benin,BEN,250
-Bermuda,BMU,559
-Bhutan,BTN,63
-Bolivia,BOL,29876
+Bermuda,BMU,406
+Bhutan,BTN,66
+Bolivia,BOL,40926
 Bonaire Sint Eustatius and Saba,BES,
-Bosnia and Herzegovina,BIH,1452
+Bosnia and Herzegovina,BIH,8438
 Botswana,BWA,1333
-Brazil,BRA,782550
-Brunei,BRN,1380
-Bulgaria,BGR,21886
-Cambodia,KHM,67655
-Cameroon,CMR,978
-Canada,CAN,367095
-Cape Verde,CPV,277
-Cayman Islands,CYM,427
+Brazil,BRA,1224171
+British Virgin Islands,VGB,
+Brunei,BRN,2000
+Bulgaria,BGR,15002
+Cambodia,KHM,90565
+Cameroon,CMR,1299
+Canada,CAN,356943
+Cape Verde,CPV,276
+Cayman Islands,CYM,506
 Central African Republic,CAF,
-Chile,CHL,116987
-China,CHN,14040020
-Colombia,COL,142065
-Comoros,COM,983
+Chile,CHL,135124
+China,CHN,16792346
+Colombia,COL,151133
+Comoros,COM,3125
 Congo,COG,495
-Costa Rica,CRI,21692
-Cote d'Ivoire,CIV,16952
-Croatia,HRV,32574
-Cuba,CUB,76780
-Curacao,CUW,2778
-Cyprus,CYP,11408
-Czechia,CZE,70615
-Democratic Republic of Congo,COD,559
-Denmark,DNK,49190
-Djibouti,DJI,254
-Dominica,DMA,213
-Dominican Republic,DOM,98775
-Ecuador,ECU,42436
-Egypt,EGY,45382
-El Salvador,SLV,39072
-England,OWID_ENG,459124
-Equatorial Guinea,GNQ,4867
-Estonia,EST,7753
+Cook Islands,COK,
+Costa Rica,CRI,26479
+Cote d'Ivoire,CIV,18462
+Croatia,HRV,28432
+Cuba,CUB,30187
+Curacao,CUW,1916
+Cyprus,CYP,11986
+Czechia,CZE,76434
+Democratic Republic of Congo,COD,960
+Denmark,DNK,45840
+Djibouti,DJI,73
+Dominica,DMA,258
+Dominican Republic,DOM,78726
+Ecuador,ECU,56868
+Egypt,EGY,50907
+El Salvador,SLV,41446
+England,OWID_ENG,505885
+Equatorial Guinea,GNQ,4470
+Estonia,EST,8751
 Eswatini,SWZ,18
-Ethiopia,ETH,20710
-Europe,OWID_EUR,4372719
-European Union,OWID_EUN,3302590
-Faeroe Islands,FRO,219
+Ethiopia,ETH,30696
+Europe,OWID_EUR,4433287
+European Union,OWID_EUN,3287097
+Faeroe Islands,FRO,545
 Falkland Islands,FLK,83
 Fiji,FJI,1762
-Finland,FIN,35120
-France,FRA,504558
-French Polynesia,PYF,956
+Finland,FIN,42646
+France,FRA,485983
+French Polynesia,PYF,1079
 Gabon,GAB,407
-Gambia,GMB,168
-Georgia,GEO,4089
-Germany,DEU,679654
-Ghana,GHA,517
-Gibraltar,GIB,165
-Greece,GRC,91142
-Greenland,GRL,446
-Grenada,GRD,317
-Guatemala,GTM,10738
-Guernsey,GGY,486
-Guinea,GIN,4529
+Gambia,GMB,819
+Georgia,GEO,3965
+Germany,DEU,670761
+Ghana,GHA,46
+Gibraltar,GIB,160
+Greece,GRC,85027
+Greenland,GRL,230
+Grenada,GRD,415
+Guatemala,GTM,14821
+Guernsey,GGY,568
+Guinea,GIN,9372
 Guinea-Bissau,GNB,
-Guyana,GUY,2881
-High income,OWID_HIC,7213829
-Honduras,HND,4443
-Hong Kong,HKG,28125
-Hungary,HUN,94393
-Iceland,ISL,3281
-India,IND,1477995
-Indonesia,IDN,197733
-Iran,IRN,81631
-Iraq,IRQ,6945
-Ireland,IRL,33987
-Isle of Man,IMN,467
-Israel,ISR,3389
-Italy,ITA,486800
+Guyana,GUY,4848
+High income,OWID_HIC,7243575
+Honduras,HND,8058
+Hong Kong,HKG,28807
+Hungary,HUN,101037
+Iceland,ISL,2988
+India,IND,1897743
+Indonesia,IDN,309002
+Iran,IRN,100698
+Iraq,IRQ,7515
+Ireland,IRL,35621
+Isle of Man,IMN,1012
+Israel,ISR,3817
+Italy,ITA,494994
 Jamaica,JAM,1187
-Japan,JPN,336422
-Jersey,JEY,633
-Jordan,JOR,23493
-Kazakhstan,KAZ,37142
-Kenya,KEN,2805
+Japan,JPN,453746
+Jersey,JEY,753
+Jordan,JOR,42352
+Kazakhstan,KAZ,44261
+Kenya,KEN,2138
 Kosovo,OWID_KOS,1250
 Kuwait,KWT,37903
 Kyrgyzstan,KGZ,1399
-Laos,LAO,18549
-Latvia,LVA,14721
-Lebanon,LBN,10449
+Laos,LAO,17274
+Latvia,LVA,15114
+Lebanon,LBN,10946
 Lesotho,LSO,589
-Liberia,LBR,1782
+Liberia,LBR,1396
 Libya,LBY,4600
-Liechtenstein,LIE,285
-Lithuania,LTU,19623
-Low income,OWID_LIC,96685
-Lower middle income,OWID_LMC,2419513
-Luxembourg,LUX,6032
-Macao,MAC,2105
-Madagascar,MDG,873
-Malawi,MWI,1573
-Malaysia,MYS,60888
-Maldives,MDV,2025
-Mali,MLI,1040
-Malta,MLT,6647
-Mauritania,MRT,869
+Liechtenstein,LIE,352
+Lithuania,LTU,20011
+Low income,OWID_LIC,77261
+Lower middle income,OWID_LMC,3035268
+Luxembourg,LUX,3695
+Macao,MAC,2638
+Madagascar,MDG,1860
+Malawi,MWI,1523
+Malaysia,MYS,78030
+Maldives,MDV,2100
+Mali,MLI,1733
+Malta,MLT,7160
+Mauritania,MRT,841
 Mauritius,MUS,2109
-Mexico,MEX,426475
-Moldova,MDA,8553
-Monaco,MCO,224
-Mongolia,MNG,23269
-Montenegro,MNE,3072
-Montserrat,MSR,19
-Morocco,MAR,186712
+Mexico,MEX,514037
+Moldova,MDA,13190
+Monaco,MCO,167
+Mongolia,MNG,51999
+Montenegro,MNE,4680
+Montserrat,MSR,17
+Morocco,MAR,251643
 Mozambique,MOZ,6064
 Myanmar,MMR,53695
-Namibia,NAM,1980
-Nauru,NRU,546
-Nepal,NPL,13706
-Netherlands,NLD,71844
-New Caledonia,NCL,899
-New Zealand,NZL,11921
+Namibia,NAM,1928
+Nauru,NRU,239
+Nepal,NPL,23257
+Netherlands,NLD,91647
+New Caledonia,NCL,797
+New Zealand,NZL,11975
 Nicaragua,NIC,82
-Niger,NER,6445
-Nigeria,NGA,18623
-North America,OWID_NAM,2919870
-North Macedonia,MKD,7296
-Northern Cyprus,OWID_CYN,273
-Northern Ireland,OWID_NIR,11233
-Norway,NOR,28055
-Oceania,OWID_OCE,82567
-Oman,OMN,4122
-Pakistan,PAK,113366
-Palestine,PSE,1045
-Panama,PAN,12366
+Niger,NER,5711
+Nigeria,NGA,11888
+North America,OWID_NAM,2650604
+North Macedonia,MKD,7303
+Northern Cyprus,OWID_CYN,386
+Northern Ireland,OWID_NIR,11397
+Norway,NOR,32809
+Oceania,OWID_OCE,91094
+Oman,OMN,2003
+Pakistan,PAK,158247
+Palestine,PSE,2020
+Panama,PAN,16032
 Papua New Guinea,PNG,374
-Paraguay,PRY,9760
-Peru,PER,66975
-Philippines,PHL,126606
-Poland,POL,299221
-Portugal,PRT,84757
-Qatar,QAT,35179
-Romania,ROU,97949
-Russia,RUS,344631
+Paraguay,PRY,10222
+Peru,PER,86935
+Philippines,PHL,157722
+Pitcairn,PCN,47
+Poland,POL,280928
+Portugal,PRT,75550
+Qatar,QAT,34815
+Romania,ROU,72930
+Russia,RUS,349215
 Rwanda,RWA,4109
 Saint Helena,SHN,97
-Saint Kitts and Nevis,KNA,530
-Saint Lucia,LCA,1003
-Saint Vincent and the Grenadines,VCT,203
-Samoa,WSM,980
-San Marino,SMR,504
-Sao Tome and Principe,STP,53
-Saudi Arabia,SAU,169748
-Scotland,OWID_SCT,40922
-Senegal,SEN,6807
-Serbia,SRB,35920
-Seychelles,SYC,249
+Saint Kitts and Nevis,KNA,682
+Saint Lucia,LCA,266
+Saint Vincent and the Grenadines,VCT,209
+Samoa,WSM,1170
+San Marino,SMR,427
+Sao Tome and Principe,STP,201
+Saudi Arabia,SAU,162755
+Scotland,OWID_SCT,44547
+Senegal,SEN,6921
+Serbia,SRB,34162
+Seychelles,SYC,271
 Sierra Leone,SLE,556
-Singapore,SGP,36227
+Singapore,SGP,46564
 Sint Maarten (Dutch part),SXM,186
-Slovakia,SVK,33462
-Slovenia,SVN,16387
-Solomon Islands,SLB,499
-Somalia,SOM,64
-South Africa,ZAF,19999
-South America,OWID_SAM,1377725
-South Korea,KOR,101235
-South Sudan,SSD,185
-Spain,ESP,348676
-Sri Lanka,LKA,53778
+Slovakia,SVK,33353
+Slovenia,SVN,15278
+Solomon Islands,SLB,277
+Somalia,SOM,220
+South Africa,ZAF,30779
+South America,OWID_SAM,1955331
+South Korea,KOR,209730
+South Sudan,SSD,248
+Spain,ESP,321017
+Sri Lanka,LKA,17191
 Sudan,SDN,9392
-Suriname,SUR,1961
-Sweden,SWE,42783
-Switzerland,CHE,64669
+Suriname,SUR,2515
+Sweden,SWE,48695
+Switzerland,CHE,76545
 Syria,SYR,66
-Taiwan,TWN,17299
-Tajikistan,TJK,261
-Thailand,THA,79793
-Timor,TLS,1236
-Togo,TGO,3867
-Tonga,TON,845
-Trinidad and Tobago,TTO,316
-Tunisia,TUN,19220
-Turkey,TUR,245631
+Taiwan,TWN,11625
+Tajikistan,TJK,279
+Thailand,THA,98713
+Timor,TLS,1752
+Togo,TGO,3321
+Tonga,TON,532
+Trinidad and Tobago,TTO,2509
+Tunisia,TUN,24420
+Turkey,TUR,207421
 Turkmenistan,TKM,
 Turks and Caicos Islands,TCA,163
 Tuvalu,TUV,
-Uganda,UGA,8547
-Ukraine,UKR,14778
-United Arab Emirates,ARE,67674
-United Kingdom,GBR,533925
-United States,USA,1830326
-Upper middle income,OWID_UMC,17163952
-Uruguay,URY,41106
-Uzbekistan,UZB,28328
+Uganda,UGA,10831
+Ukraine,UKR,12629
+United Arab Emirates,ARE,104718
+United Kingdom,GBR,585412
+United States,USA,1580789
+Upper middle income,OWID_UMC,20590431
+Uruguay,URY,31386
+Uzbekistan,UZB,29574
 Venezuela,VEN,1784
-Vietnam,VNM,22892
-Wales,OWID_WLS,22644
-Wallis and Futuna,WLF,200
-World,OWID_WRL,26893981
+Vietnam,VNM,5961
+Wales,OWID_WLS,23581
+Wallis and Futuna,WLF,155
+World,OWID_WRL,30947071
 Yemen,YEM,
-Zambia,ZMB,4246
-Zimbabwe,ZWE,16592
+Zambia,ZMB,3438
+Zimbabwe,ZWE,13535

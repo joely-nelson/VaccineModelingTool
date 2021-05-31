@@ -1,0 +1,225 @@
+iso_code,location,reproduction_rate
+AFG,Afghanistan,1.55
+OWID_AFR,Africa,
+ALB,Albania,0.54
+DZA,Algeria,1.15
+AND,Andorra,0.41
+AGO,Angola,1.1
+AIA,Anguilla,
+ATG,Antigua and Barbuda,0.4
+ARG,Argentina,1.12
+ARM,Armenia,0.53
+ABW,Aruba,
+OWID_ASI,Asia,
+AUS,Australia,1.29
+AUT,Austria,0.74
+AZE,Azerbaijan,0.56
+BHS,Bahamas,1.21
+BHR,Bahrain,1.24
+BGD,Bangladesh,1.0
+BRB,Barbados,0.85
+BLR,Belarus,0.93
+BEL,Belgium,0.87
+BLZ,Belize,1.01
+BEN,Benin,0.77
+BMU,Bermuda,
+BTN,Bhutan,1.57
+BOL,Bolivia,1.2
+BIH,Bosnia and Herzegovina,0.64
+BWA,Botswana,1.28
+BRA,Brazil,0.98
+VGB,British Virgin Islands,
+BRN,Brunei,0.64
+BGR,Bulgaria,0.67
+BFA,Burkina Faso,0.75
+BDI,Burundi,1.09
+KHM,Cambodia,1.09
+CMR,Cameroon,0.54
+CAN,Canada,0.72
+CPV,Cape Verde,0.88
+CYM,Cayman Islands,
+CAF,Central African Republic,0.89
+TCD,Chad,0.55
+CHL,Chile,1.09
+CHN,China,0.87
+COL,Colombia,1.17
+COM,Comoros,0.97
+COG,Congo,0.35
+COK,Cook Islands,
+CRI,Costa Rica,1.06
+CIV,Cote d'Ivoire,1.04
+HRV,Croatia,0.52
+CUB,Cuba,0.98
+CUW,Curacao,
+CYP,Cyprus,0.5
+CZE,Czechia,0.6
+COD,Democratic Republic of Congo,1.15
+DNK,Denmark,1.0
+DJI,Djibouti,0.48
+DMA,Dominica,0.05
+DOM,Dominican Republic,1.23
+ECU,Ecuador,0.85
+EGY,Egypt,0.99
+SLV,El Salvador,1.18
+GNQ,Equatorial Guinea,0.3
+ERI,Eritrea,1.23
+EST,Estonia,0.68
+SWZ,Eswatini,0.95
+ETH,Ethiopia,0.76
+OWID_EUR,Europe,
+OWID_EUN,European Union,
+FRO,Faeroe Islands,
+FJI,Fiji,1.72
+FIN,Finland,0.77
+FRA,France,0.87
+PYF,French Polynesia,
+GAB,Gabon,0.93
+GMB,Gambia,0.8
+GEO,Georgia,0.85
+DEU,Germany,0.67
+GHA,Ghana,0.9
+GIB,Gibraltar,
+GRC,Greece,0.9
+GRL,Greenland,
+GRD,Grenada,0.0
+GTM,Guatemala,1.03
+GGY,Guernsey,
+GIN,Guinea,0.95
+GNB,Guinea-Bissau,1.06
+GUY,Guyana,1.01
+HTI,Haiti,1.42
+HND,Honduras,1.0
+HKG,Hong Kong,
+HUN,Hungary,0.57
+ISL,Iceland,0.27
+IND,India,0.78
+IDN,Indonesia,1.15
+OWID_INT,International,
+IRN,Iran,0.86
+IRQ,Iraq,0.97
+IRL,Ireland,0.0
+IMN,Isle of Man,
+ISR,Israel,0.68
+ITA,Italy,0.67
+JAM,Jamaica,0.86
+JPN,Japan,0.76
+JEY,Jersey,
+JOR,Jordan,0.76
+KAZ,Kazakhstan,0.83
+KEN,Kenya,0.91
+KIR,Kiribati,
+OWID_KOS,Kosovo,0.48
+KWT,Kuwait,1.08
+KGZ,Kyrgyzstan,1.0
+LAO,Laos,0.52
+LVA,Latvia,0.79
+LBN,Lebanon,0.7
+LSO,Lesotho,0.65
+LBR,Liberia,0.5
+LBY,Libya,0.97
+LIE,Liechtenstein,0.73
+LTU,Lithuania,0.69
+LUX,Luxembourg,0.76
+MAC,Macao,
+MDG,Madagascar,0.63
+MWI,Malawi,0.97
+MYS,Malaysia,1.27
+MDV,Maldives,1.06
+MLI,Mali,0.43
+MLT,Malta,0.84
+MHL,Marshall Islands,
+MRT,Mauritania,1.24
+MUS,Mauritius,1.23
+MEX,Mexico,0.99
+FSM,Micronesia (country),
+MDA,Moldova,0.53
+MCO,Monaco,0.33
+MNG,Mongolia,0.92
+MNE,Montenegro,0.79
+MSR,Montserrat,
+MAR,Morocco,1.12
+MOZ,Mozambique,0.84
+MMR,Myanmar,1.51
+NAM,Namibia,1.21
+NRU,Nauru,
+NPL,Nepal,0.87
+NLD,Netherlands,0.79
+NCL,New Caledonia,
+NZL,New Zealand,0.8
+NIC,Nicaragua,0.06
+NER,Niger,1.0
+NGA,Nigeria,1.02
+OWID_NAM,North America,
+MKD,North Macedonia,0.51
+OWID_CYN,Northern Cyprus,
+NOR,Norway,0.92
+OWID_OCE,Oceania,
+OMN,Oman,1.11
+PAK,Pakistan,0.87
+PSE,Palestine,1.21
+PAN,Panama,1.12
+PNG,Papua New Guinea,1.08
+PRY,Paraguay,1.04
+PER,Peru,0.93
+PHL,Philippines,1.08
+PCN,Pitcairn,
+POL,Poland,0.47
+PRT,Portugal,1.14
+QAT,Qatar,0.67
+ROU,Romania,0.54
+RUS,Russia,1.02
+RWA,Rwanda,0.61
+KNA,Saint Kitts and Nevis,
+LCA,Saint Lucia,1.06
+VCT,Saint Vincent and the Grenadines,1.24
+WSM,Samoa,
+SMR,San Marino,0.35
+STP,Sao Tome and Principe,0.61
+SAU,Saudi Arabia,1.06
+SEN,Senegal,1.11
+SRB,Serbia,0.59
+SYC,Seychelles,1.16
+SLE,Sierra Leone,0.79
+SGP,Singapore,0.93
+SXM,Sint Maarten (Dutch part),
+SVK,Slovakia,0.57
+SVN,Slovenia,0.78
+SLB,Solomon Islands,
+SOM,Somalia,0.68
+ZAF,South Africa,1.33
+OWID_SAM,South America,
+KOR,South Korea,0.87
+SSD,South Sudan,0.53
+ESP,Spain,0.97
+LKA,Sri Lanka,1.08
+SDN,Sudan,0.35
+SUR,Suriname,1.33
+SWE,Sweden,0.58
+CHE,Switzerland,0.88
+SYR,Syria,0.87
+TWN,Taiwan,1.97
+TJK,Tajikistan,0.0
+TZA,Tanzania,-0.0
+THA,Thailand,1.2
+TLS,Timor,1.14
+TGO,Togo,0.77
+TON,Tonga,
+TTO,Trinidad and Tobago,1.1
+TUN,Tunisia,1.04
+TUR,Turkey,0.75
+UGA,Uganda,2.02
+UKR,Ukraine,0.67
+ARE,United Arab Emirates,1.14
+GBR,United Kingdom,1.32
+USA,United States,0.74
+URY,Uruguay,1.12
+UZB,Uzbekistan,0.89
+VUT,Vanuatu,
+VAT,Vatican,
+VEN,Venezuela,1.1
+VNM,Vietnam,1.59
+WLF,Wallis and Futuna,
+OWID_WRL,World,0.87
+YEM,Yemen,0.87
+ZMB,Zambia,1.55
+ZWE,Zimbabwe,1.32

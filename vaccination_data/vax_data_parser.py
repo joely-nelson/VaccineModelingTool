@@ -100,3 +100,12 @@ def cases_deaths_parser(unparsed, parsed_deaths, parsed_cases):
             deaths_writer.writerow((row[1], recent_deaths[row[1]]))
             cases_writer.writerow((row[1], recent_cases[row[1]]))
             countries_seen.add(row[1])
+
+# Takes an unparsed data file containing the latest COVID-19 data and outputs
+# a single csv file mapping country iso_codes to r-values
+def r_value_parser(unparsed, parsed):
+    r_writer = csv.writer(parsed)
+    # Go through each row in unparsed file
+    for row in csv.reader(unparsed):
+        # Write the country name, iso code, and r-value
+        r_writer.writerow((row[0], row[2], row[16]))
