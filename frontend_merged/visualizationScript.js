@@ -73,7 +73,6 @@ function update() {
       var colorSelection = d3.scaleSequential(colorScale) // used for normal output values
       var logColorSelector = d3.scalePow().exponent(0.1).range(colorScale); // use for smaller output values
       if (simResults == undefined) {
-        console.log("simResult undefined");
         if (dummy_model_output[countryCode] == undefined) {
           return "black";
         }
@@ -83,15 +82,12 @@ function update() {
       } else if (currentViewingOption == "Exposed" || currentViewingOption == "Dead" || currentViewingOption == "Infected" || currentViewingOption == "Recovered") {
         return logColorSelector(simResults[countryCode][1][currentTimeIndex][viewingOptions[currentViewingOption]] / population[countryCode]);
       } else {
-        console.log(simResults[countryCode][1][currentTimeIndex]);
         return colorSelection(simResults[countryCode][1][currentTimeIndex][viewingOptions[currentViewingOption]] / population[countryCode]);
       }
     })
     .on("click", function(d, i) { // handles on click functionality
       currentCountryName = d.target.__data__.properties.ADMIN;
       currentCountryCode = d.target.__data__.properties.ISO_A3;
-      console.log(currentCountryName);
-      console.log(currentCountryCode);
       // open window??
       popupWindow = window.open(
         'popupWindow/popup.html','popUpWindow','height=700,width=500,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
@@ -138,7 +134,6 @@ function update() {
 
 // Slider code
 function createSlider(n) {
-  console.log("creating slider with size" + n);
   var slider = d3.sliderHorizontal()
   .min(0)
   .max(n - 1) // size of the slider, may need adiditional info to adjust
@@ -177,9 +172,13 @@ function changeDataView() {
   var dropdownMenu = document.getElementById("dataView");
   currentViewingOption = dropdownMenu.options[dropdownMenu.selectedIndex].text;
 
-  console.log(currentViewingOption);
   map.selectAll("path").remove();
   update();
+}
+
+function fullResetMap(timeLength) {
+  update();
+  createSlider(timeLength);
 }
 
 svg.call(zoom);
@@ -187,6 +186,6 @@ svg.call(zoom);
 // initial call 
 update();
 
-createSlider(20);
+// createSlider(20);
 
 

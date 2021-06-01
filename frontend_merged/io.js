@@ -21,8 +21,6 @@ var numParams;
 d3.json("http://localhost:8000/json_io_files/master-json.json").then(function(data) {
     defaultParams = data;
     customParams = JSON.parse(JSON.stringify(defaultParams)); // deep copy
-    console.log(defaultParams);
-    // TODO: render map
 });
 
 // Load default simulation output
@@ -176,10 +174,8 @@ function simulate() {
         headers: {"Content-type": "application/json; charset=UTF-8"}
     })
         .then(function(data) {
-            console.log(data);
             simResults = data;
-            createSlider(numDaysSim); // NOTE: Hard coded for now
-            update();
+            fullResetMap(numDaysSim);
         });
 }
 
@@ -208,9 +204,6 @@ function reset() {
     customParams = JSON.parse(JSON.stringify(defaultParams)); // deep copy
 
     // TODO: render map
-    console.log("Reseting and drwing new map");
-    console.log(simResults);
-    createSlider(numDaysSim);
-    update();
+    fullResetMap(numDaysSim);
     
 }
