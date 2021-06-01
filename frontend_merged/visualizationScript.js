@@ -6,7 +6,9 @@ var height = 700; // height of map
 var currentCountryName = "not initialized yet"; // holds value of clicked country name
 var currentCountryCode = ""; // holds value of clicked country code
 var viewingOptions = {"Suceptible":0, "Exposed":1, "Infected":2, "Dead":3, "Recovered":4, "Vaccinated":5};
+var viewingOptionsArray = ["Suceptible", "Exposed", "Infected", "Dead", "Recovered", "Vaccinated"]
 var currentViewingOption = "Suceptible" // relates to index of above array
+var currentViewingOptionIndex = 0;
 var currentTimeIndex = 0; // represent current time step slider is on
 
 // reads in population data from file.
@@ -71,6 +73,7 @@ function update() {
       var colorSelection = d3.scaleSequential(colorScale) // used for normal output values
       var logColorSelector = d3.scalePow().exponent(0.1).range(colorScale); // use for smaller output values
       if (simResults == undefined) {
+        console.log("simResult undefined");
         if (dummy_model_output[countryCode] == undefined) {
           return "black";
         }
@@ -80,6 +83,7 @@ function update() {
       } else if (currentViewingOption == "Exposed" || currentViewingOption == "Dead" || currentViewingOption == "Infected" || currentViewingOption == "Recovered") {
         return logColorSelector(simResults[countryCode][1][currentTimeIndex][viewingOptions[currentViewingOption]] / population[countryCode]);
       } else {
+        console.log(simResults[countryCode][1][currentTimeIndex]);
         return colorSelection(simResults[countryCode][1][currentTimeIndex][viewingOptions[currentViewingOption]] / population[countryCode]);
       }
     })
@@ -90,7 +94,7 @@ function update() {
       console.log(currentCountryCode);
       // open window??
       popupWindow = window.open(
-        'popupWindow/popup.html','popUpWindow','height=454,width=500,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
+        'popupWindow/popup.html','popUpWindow','height=700,width=500,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
     })
   .append("svg:title")
   .text(function(d) { // handles the hover functionality
@@ -149,9 +153,10 @@ function createSlider(n) {
       update();
       svg.call(zoom);
     }
-  });
+  })
+  .value(0);
   
-
+  currentTimeIndex = 0;
   d3.select("#slider").select("svg").remove();
 
 

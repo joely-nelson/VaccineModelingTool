@@ -4,6 +4,12 @@ window.onload = function() {
     var ctx = document.getElementById('myChart');
     var currentCountryCode = window.opener.currentCountryCode
     var simResults = window.opener.simResults;
+    
+    
+    
+    
+    
+    // graphing
     if (simResults != undefined) {
         console.log(window.opener.simResults);
         console.log("pop up");
