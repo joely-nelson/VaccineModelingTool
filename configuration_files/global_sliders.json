@@ -1,5 +1,5 @@
 {
-    "Vaccination Start (days after start of pandemic" : {
+    "Vaccination Start (days after start of pandemic)" : {
         "type":"number",
         "min":"0",
         "max":"1000",

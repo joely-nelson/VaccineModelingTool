@@ -1,9 +1,10 @@
 {
     "vac_start": 200,
     "vac_rate": 1000,
-    "vac_uptake":80.1,
+    "vac_uptake":80.0,
     "r": 2.1,
-    "mortality":5,
+    "mortality":2,
     "avg_days_in_exposed":14,
-    "avg_days_in_infected":14
+    "avg_days_in_infected":14,
+    "vac_efficacy":85
 }
