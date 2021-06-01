@@ -99,6 +99,7 @@ def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json
     for key in master_dict:
         master_dict[key]["vac_start"] = 200
         master_dict[key]["vac_uptake"] = 80.1
+        master_dict[key]["vac_efficacy"] = 85
         master_dict[key]["avg_days_in_exposed"] = 14
         master_dict[key]["avg_days_in_infected"] = 14
         if not "population" in master_dict[key]:
