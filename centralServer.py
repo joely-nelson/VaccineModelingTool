@@ -26,9 +26,9 @@ class VaccineModelingHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         numDays = url_query["numDays"][0]
 
 
-        # TODO: simulationResults = m.simulate_world(customParams, numDays)
+        simulationResults = m.simulate_world(customParams, numDays)
 
-        simulationResults = {'hello': 'world', 'received': 'ok'}
+        #simulationResults = {'hello': 'world', 'received': 'ok'}
         resultBytes = bytes(json.dumps(simulationResults), "utf8")
         
         # return data

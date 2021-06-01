@@ -18,14 +18,14 @@ var numDaysSim = 365;
 var numParams;
 
 // initialize default and custom data structures
-// TODO: change path of default params to master json
-d3.json("http://localhost:8000/default_params.json").then(function(data) {
+d3.json("http://localhost:8000/json_io_files/master-json.json").then(function(data) {
     defaultParams = data;
     customParams = JSON.parse(JSON.stringify(defaultParams)); // deep copy
+    console.log(defaultParams);
+    // TODO: render map
 });
 
 // Load default simulation output
-// TODO: change path to default output
 d3.json("http://localhost:8000/json_io_files/default_output.json").then(function(data) {
     defaultSimOutput = data;
     simResults = defaultSimOutput;
@@ -185,10 +185,10 @@ function reset() {
 
     // reset numDays Input
     numDaysSim = 365;
-    document.getElementById(sim_days_input).value = "";
+    document.getElementById("sim_days_input").value = "";
 
     // change all radio buttons to default checked
-    for (var i=0; i <= numParams; i++) {
+    for (var i=0; i < numParams; i++) {
         // reset radio
         var id = "default_radio_" + i;
         document.getElementById(id).checked = "checked";
@@ -203,4 +203,6 @@ function reset() {
 
     // reset customGlobalParams to default
     customParams = JSON.parse(JSON.stringify(defaultParams)); // deep copy
+
+    // TODO: render map
 }
