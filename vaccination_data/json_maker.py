@@ -59,6 +59,10 @@ def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json
         # append vaccination data
         if not iso_dict[key] in master_dict:
             master_dict[iso_dict[key]] = {"population" : ""}
+
+        # If the field is empty, use the default
+        if vax_dict[key] in master_dict:
+            master_dict[iso_dict[key]]["vac_rate"] = 1000
         else:
             master_dict[iso_dict[key]]["vac_rate"] = vax_dict[key]
 
@@ -70,6 +74,10 @@ def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json
         if not iso_dict[key] in master_dict:
             master_dict[iso_dict[key]] = {"population" : "",
                                           "vac_rate" : "1000"}
+
+        # If there is an entry but the field is empty, use the default
+        if r_dict[key] == "":
+            master_dict[iso_dict[key]]["r"] = 2.1
         else:
             master_dict[iso_dict[key]]["r"] = r_dict[key]
 
