@@ -514,7 +514,49 @@ def simulate_region5_2(total_pop, mortality, reproduction_value, avg_exposed_day
                     vac_eff_i, vac_eff_d)
 
 
-def simulate_world(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_days, vac_rate):
+def simulate_world(param_dict, num_sim_days):
+    '''
+    Given a parameter dictionary matching the format of the master-json file,
+    will simulate for each of the given countries using those parameters.
+    Returns a dictionary where the keys are the countries and the values are 
+    a the result of calling simulate region for that country.
+    '''
+    ret_dict = dict()
+    for country, params in param_dict.items():
+        try:
+            # pull out parameters to pass to model
+            # some must be divided by 100 to be a value in between 0-1 instead of
+            # 0-100 to work with the model.
+            vac_start_day = int(params['vac_start'])
+            vac_rate = float(params['vac_rate'])
+            avg_exposed_days = float(params['avg_days_in_exposed'])
+            reproduction_value = float(params['r'])
+            uptake_per = float(params['vac_uptake'])/100
+            avg_infected_days = float(params['avg_days_in_infected'])
+            mortality = float(params['mortality'])/100
+            total_pop = int(params['population'])
+            num_vac_days = int(num_sim_days) - vac_start_day
+            vac_eff_i = float(params["vac_efficacy"])/100
+            # currently hardcoded as 0, needs to be added to master json if we want it
+            # to be another value
+            vac_eff_d = 0
+
+            # simulate
+            t, v = simulate_region5_2(total_pop, mortality, reproduction_value, avg_exposed_days, avg_infected_days, 
+                        vac_start_day, vac_rate, uptake_per, num_vac_days,
+                        vac_eff_i, vac_eff_d)
+
+            # add results to the ret dict
+            ret_dict[country] = (list(t), [list(i) for i in v])
+        except:
+            continue
+
+    return ret_dict
+
+
+
+
+def simulate_world_old(alpha, beta, gamma, eps, vac_start_day, uptake_per, num_vac_days, vac_rate):
     '''
     Simulates the entire world given parameters from files.
     ARGS:
