@@ -44,6 +44,9 @@ def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json
     case_dict = json.load(case_json)
     r_dict = json.load(r_json)
     iso_dict = json.load(iso_json)
+    default_json = open("../configuration_files/global_defaults.json", "r")
+    default_dict = json.load(default_json)
+    default_json.close()
 
     # Dictionary containing a map of ISO codes to a list of data
     master_dict = {}
@@ -62,7 +65,7 @@ def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json
 
         # If the field is empty, use the default
         if vax_dict[key] in master_dict:
-            master_dict[iso_dict[key]]["vac_rate"] = 1000
+            master_dict[iso_dict[key]]["vac_rate"] = default_dict["vac_rate"]
         else:
             master_dict[iso_dict[key]]["vac_rate"] = vax_dict[key]
 
@@ -73,11 +76,11 @@ def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json
         # rate.  Otherwise, just append r data
         if not iso_dict[key] in master_dict:
             master_dict[iso_dict[key]] = {"population" : "",
-                                          "vac_rate" : "1000"}
+                                          "vac_rate" : default_dict["vac_rate"]}
 
         # If there is an entry but the field is empty, use the default
         if r_dict[key] == "":
-            master_dict[iso_dict[key]]["r"] = 2.1
+            master_dict[iso_dict[key]]["r"] = default_dict["r"]
         else:
             master_dict[iso_dict[key]]["r"] = r_dict[key]
 
@@ -89,11 +92,11 @@ def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json
                 # set defaults for population, vaccination, and r data
                 if not iso_dict[key] in master_dict:
                     master_dict[iso_dict[key]] = {"population" : "",
-                                                  "vac_rate" : "1000",
-                                                  "r" : "2.1"}
+                                                  "vac_rate" : default_dict["vac_rate"],
+                                                  "r" : default_dict["r"]}
                 # If the country has no data for deaths or cases, use default
                 elif case_dict[key] == "" or death_dict[key] == "":
-                    master_dict[iso_dict[key]]["mortality"] = 5
+                    master_dict[iso_dict[key]]["mortality"] = default_dict["mortality"]
                 # If the country has no cases, put mortality rate as 0
                 elif float(case_dict[key]) == 0:
                     master_dict[iso_dict[key]]["mortality"] = 0
@@ -105,19 +108,19 @@ def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json
     # Now, make sure all entries are filled in through the master_dict,
     # setting the values to the defaults if they are not present.
     for key in master_dict:
-        master_dict[key]["vac_start"] = 200
-        master_dict[key]["vac_uptake"] = 80.1
-        master_dict[key]["vac_efficacy"] = 85
-        master_dict[key]["avg_days_in_exposed"] = 14
-        master_dict[key]["avg_days_in_infected"] = 14
+        master_dict[key]["vac_start"] = default_dict["vac_start"]
+        master_dict[key]["vac_uptake"] = default_dict["vac_uptake"]
+        master_dict[key]["vac_efficacy"] = default_dict["vac_efficacy"]
+        master_dict[key]["avg_days_in_exposed"] = default_dict["avg_days_in_exposed"]
+        master_dict[key]["avg_days_in_infected"] = default_dict["avg_days_in_infected"]
         if not "population" in master_dict[key]:
             master_dict[key]["population"] = ""
         if not "vac_rate" in master_dict[key]:
-            master_dict[key]["vac_rate"] = 1000
+            master_dict[key]["vac_rate"] = default_dict["vac_rate"]
         if not "r" in master_dict[key]:
-            master_dict[key]["r"] = 2.1
+            master_dict[key]["r"] = default_dict["r"]
         if not "mortality" in master_dict[key]:
-            master_dict[key]["mortality"] = 5
+            master_dict[key]["mortality"] = default_dict["mortality"]
 
     # Now, make master json
     json.dump(master_dict, master_json)

@@ -124,7 +124,7 @@ while 1:
     iso_json = open("../json_io_files/countries-to-iso.json", "w")
     json_maker.make_iso_json(pop_fig_by_country_file_parsed, vax_file_parsed, 
         r_value_file, iso_json)
-    print("Created iso code json")
+    print("Created ISO code json")
 
     # Make master json mapping iso codes to a list containing population, vaccinations,
     # deaths, and cases, in that order.
