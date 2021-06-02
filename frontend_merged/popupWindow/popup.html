@@ -9,47 +9,13 @@
 </head>
 <body>
     <header class="header"> 
-        <h1 id="countryname">Vacine Modeling Tool</h1> 
+        <h1 id="countryname"></h1> 
     </header>
-    <p>
-        <label for="parameter1"> alpha = <span id="parameter1-value"> </span> </label>
-        <input type="number" min="0.0" max="100.0" step="0.1" value="0" id="parameter1">
-    </p>
-    <p>
-        <label for="input2"> beta = <span id="input2-value"> </span> </label>
-        <input type="number" min="0.0" max="100.0" step="0.1" value="0" id="input2">
-    </p>
+    
+    <div class="scrollable" id=countryParams> 
+    </div>
 
-    <p>
-        <label for="input3"> epsilon = <span id="input3-value"> </span> </label>
-        <input type="number" min="0.0" max="1.0" step="0.001" value="0" id="input3">
-    </p>
-
-    <p>
-        <label for="input4"> gamma = <span id="input4-value"> </span> </label>
-        <input type="number" min="0.0" max="1.0" step="0.001" value="0" id="input4">
-    </p>
-
-    <p>
-        <label for="input5"> vaccination start date = <span id="input5-value"> </span> </label>
-        <input type="number" min="1" max="1000" step="1" value="0" id="input5">
-    </p>
-
-    <p>
-        <label for="input6"> uptake % = <span id="input6-value"> </span> </label>
-        <input type="number" min="0.0" max="100.0" step="0.1" value="0" id="input6">
-    </p>
-
-    <p>
-            <label for="input7"> number of vaccination days = <span id="input7-value"> </span> </label>
-            <input type="number" min="0" max="1000" step="1" value="0" id="input7">
-    </p>
-
-    <p>
-        <label for="input8"> vaccination rate = <span id="input8-value"> </span> </label>
-        <input type="number" min="0.0" max="100.0" step="0.1" value="0" id="input8">
-    </p>
-    <button class="button button2" id="updateCountyry">Set</button>
+    <button class="button button2" id="apply">Apply</button>
     <br></br>
     
     <canvas id="myChart" width="400" height="300"></canvas>

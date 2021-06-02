@@ -8,6 +8,15 @@
         "mapping":"vac_start"
     },
 
+    "Vaccine Efficacy" : {
+        "type":"number",
+        "min":"0",
+        "max":"100",
+        "step":"1",
+        "default":"0",
+        "mapping":"vac_efficacy"
+    },
+    
     "Vaccination Rate (vac/day)" : {
         "type":"number",
         "min":"0.0",
