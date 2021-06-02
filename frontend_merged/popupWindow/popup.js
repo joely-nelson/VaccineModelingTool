@@ -1,9 +1,25 @@
-window.onload = function() {
-    console.log("this from child window" + window.opener.currentCountryName);
+var currentCountryCode;
+
+// Initializes popup window
+// Creates input slider for each parameter in config file
+// populates with current values (from default or custom global)
+// display plots for simulation output
+window.addEventListener("DOMContentLoaded", function(event) {
     document.getElementById('countryname').innerHTML = window.opener.currentCountryName;
     var ctx = document.getElementById('myChart');
-    var currentCountryCode = window.opener.currentCountryCode
     var simResults = window.opener.simResults;
+    currentCountryCode = window.opener.currentCountryCode;
+    
+    // load sliders from configuration file
+    loadParams(currentCountryCode);
+
+    // bind event listener to apply button
+    d3.select('#apply').on("click", function() {
+        console.log("Click on apply");
+        applyEventListener();
+    });
+
+    // load graph
     if (simResults != undefined) {
         console.log(window.opener.simResults);
         console.log("pop up");
@@ -77,5 +93,39 @@ window.onload = function() {
             }
         });
     }
+});
+
+// function for loading sliders in config file
+function loadParams(countryCode) {
+    console.log("Loading Params");
+    var customParams = window.opener.customParams;
+    var sliders = window.opener.sliders;
+
+    // iterate over each slider and display current value
+    var i = 0;
+    for (param in sliders) {
+        document.getElementById("countryParams").insertAdjacentHTML('beforeend',
+        '<label for=country_input_' + i + '>' + param +': </label>' +
+        '<input class="custom"' +
+        ' type=' + sliders[param]["type"] + 
+        ' min=' + sliders[param]["min"] + 
+        ' max=' + sliders[param]["max"] + 
+        ' step=' + sliders[param]["step"] + 
+        ' value=' + customParams[countryCode][sliders[param]["mapping"]] + 
+        ' id="country_input_' + i + '"><br>');
+        i++;
+    }
 }
 
+
+
+// event listener for "apply"
+function applyEventListener() {
+    var newParams = new Array();
+    var numParams = window.opener.numParams;
+    for (var i = 0; i < numParams; i++) {
+        inputElementID = "country_input_" + i;
+        newParams[i] = document.getElementById(inputElementID).value;
+    }
+    window.opener.countryUpdate(currentCountryCode, newParams);
+}

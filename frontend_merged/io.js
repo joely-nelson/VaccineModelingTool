@@ -2,47 +2,40 @@
 var radioIsCustom = new Array();
 var inputNumMapping = new Array();
 
+// maps storing configuration values and metadata
 var globalDefaults;
+var sliders;
+var numParams;
 
-// variables to store params and corresponding model output
+// variables to store model params and corresponding model output
 var defaultParams;
+var customParams;
 var defaultSimOutput;
 
-var customParams;
-
-var simResults;
+// used by the map to display output
+// points to either defaultSimOutput of output generated with custom params
+var simResults;  
 
 // Param for number to conduct simulation over
 var numDaysSim = 365;
 
-var numParams;
-
 // initialize default and custom data structures
-// TODO: change path of default params to master json
-d3.json("http://localhost:8000/default_params.json").then(function(data) {
+d3.json("http://localhost:8000/json_io_files/master-json.json").then(function(data) {
     defaultParams = data;
     customParams = JSON.parse(JSON.stringify(defaultParams)); // deep copy
 });
 
 // Load default simulation output
-// TODO: change path to default output
 d3.json("http://localhost:8000/json_io_files/default_output.json").then(function(data) {
     defaultSimOutput = data;
-    simResults = defaultSimOutput;
+    simResults = JSON.parse(JSON.stringify(defaultSimOutput));
+    createSlider(numDaysSim);
+    update();
+
 });
-
-
 
 // Dynamically Load Global Parameter Pane
 document.addEventListener("DOMContentLoaded", function(event) {     
-    // dynamically load vaccine drop down
-    d3.json("http://localhost:8000/json_io_files/vaccines.json").then(function(options) {
-        for (i in options["vaccines"]) {
-            document.getElementById("input_0").insertAdjacentHTML('beforeend', 
-            '<option value="' + options["vaccines"][i] + '">' + options["vaccines"][i] + '</option>');
-        }
-    });
-
     // load global defaults
     d3.json("http://localhost:8000/configuration_files/global_defaults.json").then(function(defaults) {
         globalDefaults = defaults;
@@ -50,9 +43,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // dynamically add all user inputs specified in the config file
     d3.json("http://localhost:8000/configuration_files/global_sliders.json").then(function(options) {
-        var i = 1;
-        radioIsCustom[0] = 0;
-        inputNumMapping[0] = "vaccine_type";
+        sliders = options;
+        var i = 0;
         for (param in options) {
             document.getElementById("globalParams").insertAdjacentHTML('beforeend',
             '<p>' + param + ':</p>' +
@@ -62,16 +54,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
             '<input class="radio " type="radio" id="custom_radio_' + i + '" name="radio' + i + '">' +
             '<label for=custom_radio_' + i + '>Custom Global: </label>' +
             '<input class="custom"' +
-            ' type=' + options[param]["type"] + 
-            ' min=' + options[param]["min"] + 
-            ' max=' + options[param]["max"] + 
-            ' step=' + options[param]["step"] + 
-            ' placeholder=' + globalDefaults[options[param]["mapping"]] + // TODO: retrieve from global default not options
+            ' type=' + sliders[param]["type"] + 
+            ' min=' + sliders[param]["min"] + 
+            ' max=' + sliders[param]["max"] + 
+            ' step=' + sliders[param]["step"] + 
+            ' placeholder=' + globalDefaults[sliders[param]["mapping"]] + // TODO: retrieve from global default not options
             ' id="input_' + i + '"><br>' +
             '</form>');
             
             // initialize mappings
-            inputNumMapping[i] = options[param]["mapping"];
+            inputNumMapping[i] = sliders[param]["mapping"];
             radioIsCustom[i] = 0;
             i++;
         }
@@ -137,15 +129,19 @@ function globalUpdate(fieldNum) {
     for (iso in customParams) {
         customParams[iso][fieldName] = customVal;
     }
+    console.log(customParams);
 }
 
-// country update function
-    // TODO:
-    // map input number to param name
-    // update param name to custom for given country
+function countryUpdate(countryCode, params) {
+    for (var i = 0; i < numParams; i++) {
+        fieldName = inputNumMapping[i];
+        customParams[countryCode][fieldName] = params[i];
+    }
+    console.log(customParams);
+}
 
-// bind event listener to simDays
 
+// bind event listener to sim days
 d3.select('#sim_days_input').on("click", function(){
     simDaysUpdate(+this.value);
 });
@@ -173,10 +169,8 @@ function simulate() {
         headers: {"Content-type": "application/json; charset=UTF-8"}
     })
         .then(function(data) {
-            console.log(data);
             simResults = data;
-            createSlider(100); // NOTE: Hard coded for now
-            update();
+            fullResetMap(numDaysSim);
         });
 }
 
@@ -185,10 +179,10 @@ function reset() {
 
     // reset numDays Input
     numDaysSim = 365;
-    document.getElementById(sim_days_input).value = "";
+    document.getElementById("sim_days_input").value = "";
 
     // change all radio buttons to default checked
-    for (var i=0; i <= numParams; i++) {
+    for (var i=0; i < numParams; i++) {
         // reset radio
         var id = "default_radio_" + i;
         document.getElementById(id).checked = "checked";
@@ -203,4 +197,8 @@ function reset() {
 
     // reset customGlobalParams to default
     customParams = JSON.parse(JSON.stringify(defaultParams)); // deep copy
+
+    // render map
+    fullResetMap(numDaysSim);
+    
 }

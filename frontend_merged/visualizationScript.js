@@ -6,7 +6,9 @@ var height = 700; // height of map
 var currentCountryName = "not initialized yet"; // holds value of clicked country name
 var currentCountryCode = ""; // holds value of clicked country code
 var viewingOptions = {"Suceptible":0, "Exposed":1, "Infected":2, "Dead":3, "Recovered":4, "Vaccinated":5};
+var viewingOptionsArray = ["Suceptible", "Exposed", "Infected", "Dead", "Recovered", "Vaccinated"]
 var currentViewingOption = "Suceptible" // relates to index of above array
+var currentViewingOptionIndex = 0;
 var currentTimeIndex = 0; // represent current time step slider is on
 
 // reads in population data from file.
@@ -86,11 +88,9 @@ function update() {
     .on("click", function(d, i) { // handles on click functionality
       currentCountryName = d.target.__data__.properties.ADMIN;
       currentCountryCode = d.target.__data__.properties.ISO_A3;
-      console.log(currentCountryName);
-      console.log(currentCountryCode);
       // open window??
       popupWindow = window.open(
-        'popupWindow/popup.html','popUpWindow','height=454,width=500,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
+        'popupWindow/popup.html','popUpWindow','height=700,width=500,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
     })
   .append("svg:title")
   .text(function(d) { // handles the hover functionality
@@ -134,7 +134,6 @@ function update() {
 
 // Slider code
 function createSlider(n) {
-  console.log("creating slider with size" + n);
   var slider = d3.sliderHorizontal()
   .min(0)
   .max(n - 1) // size of the slider, may need adiditional info to adjust
@@ -149,9 +148,10 @@ function createSlider(n) {
       update();
       svg.call(zoom);
     }
-  });
+  })
+  .value(0);
   
-
+  currentTimeIndex = 0;
   d3.select("#slider").select("svg").remove();
 
 
@@ -172,9 +172,13 @@ function changeDataView() {
   var dropdownMenu = document.getElementById("dataView");
   currentViewingOption = dropdownMenu.options[dropdownMenu.selectedIndex].text;
 
-  console.log(currentViewingOption);
   map.selectAll("path").remove();
   update();
+}
+
+function fullResetMap(timeLength) {
+  update();
+  createSlider(timeLength);
 }
 
 svg.call(zoom);
@@ -182,6 +186,6 @@ svg.call(zoom);
 // initial call 
 update();
 
-createSlider(20);
+// createSlider(20);
 
 

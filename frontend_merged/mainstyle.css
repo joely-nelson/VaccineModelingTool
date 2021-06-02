@@ -95,6 +95,7 @@ clear: both;
   height: 75;
 }
 .slider.title {
+    font-weight: bold;
     text-align: center;
 }
 
