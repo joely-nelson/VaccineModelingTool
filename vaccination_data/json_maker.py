@@ -10,13 +10,49 @@ import json
 # Takes a parsed csv file and ouputs a json mapping
 # to data columns to each other.
 def make_json(csv_file, json_file, index_1, index_2):
+    """
+    Takes a csv file and converts it into a single json file by mapping one column to
+    another column
+
+    PRE: the number of columns in csv_file is less than both
+         index_1 + 1 and index_2 + 1.
+
+    ARGS:
+        - csv_file: any opened csv file with a number of columns that is less than both
+          index_1 + 1 and index_2 + 1.
+        - json_file: a json file that will map the keys in the column indicated by 
+          index_1 to the values in the column indicated by index_2
+        - index_1: column of the keys in the json (0-indexed)
+        - index_2: column of the values in the json (0-indexed)
+    """
+
     csv_reader = csv.reader(csv_file)
     aux_dict = dict((row[index_1], row[index_2]) for row in csv_reader)
     json.dump(aux_dict, json_file)
 
-# Takes the parsed population and vaccination files (each from different sources)
-# and makes a parsed json of mapping country names to ISO codes
 def make_iso_json(pop_csv, vax_csv, r_csv, iso_json):
+    """
+    Takes the parsed population, vaccination, and r files (each from different sources)
+    and makes a parsed json of mapping country names to 3-letter ISO codes
+
+    PRE: 
+        The correct files are used for pop_csv, vax_csv, and r_csv
+
+    ARGS:
+        - pop_csv: the parsed population file obtained by running population_parser
+          on the unparsed population file from JohnSnowLabs
+        - vax_csv: the parsed vaccination file obtained by running vax_parser on 
+          the "vaccinations" file from OWID
+        - r_csv: the parsed reproduction number file obtained by running r_value_parser
+          on the owid-covid-latest file from OWID
+        - iso_json: a json file which maps the country names in each of the above files
+          to the corresponding iso_codes in said files.
+
+    NOTES:
+        Micronesia is represented differently in the cases and deaths file,
+        so an explicit modification has to be added here. 
+    """
+
     iso_dict = {}
     # Add all ISO codes in population file
     for row in csv.reader(pop_csv):
@@ -35,8 +71,44 @@ def make_iso_json(pop_csv, vax_csv, r_csv, iso_json):
     # Now convert the dictionary to a json_file
     json.dump(iso_dict, iso_json)
 
-# Outputs a master json mapping iso codes to a dictionary of data containing 
 def make_master_json(pop_json, vax_json, death_json, case_json, r_json, iso_json, master_json):
+    """
+    Takes json files mapping iso codes to population, daily average COVID-19 vaccinations, and
+    COVID-19 reproduction numbers, as well as json files mapping country names to COVID-19 
+    weekly deaths and cases and a json file mapping country names to 3-letter ISO codes, and 
+    produces a "master json" containing all the data necessary for running the modeling tool.
+
+    PRE: The correct files are used for pop_json, vax_json, death_json, case_json, r_json,
+         and iso_json
+
+    ARGS:
+        - pop_json: a json file mapping country names to population data for each country
+        - vax_csv: a json file mapping country names to average daily vaccination rate
+          over the last 7 days for each country
+        - death_json: a json file mapping country names to the most recent weekly COVID-19
+          death data for each country
+        - case_json: a json file mapping country names to the most recent weekly COVID-19
+          case data for each country
+        - r_json: a json file mapping country names to reproduction values of COVID-19 for
+          each country
+        - iso_json: a json file which maps the country names in each of the above files
+          to the corresponding iso_codes in said files.
+        - master_json: a json containing ISO codes for each country mapped to a dictionary
+          of data formatted as follows:
+            {
+                vac_start: number of days after the pandemic at which vaccinations start
+                vac_rate: number of vaccinations per day
+                vac_uptake: percentage of people willing to be vaccinated
+                r: reproduction value of the virus
+                mortality: mortality rate of the virus (weekly deaths/weely cases)
+                avg_days_in_exposed: average number of days a person is exposed to the virus
+                avg_days_in_infected: average number of days a person is infected with the virus
+                vac_efficacy: Efficacy of vaccinations given at preventing death
+            }
+          Where data is unavailable for a given country, defaults provided by the file 
+          global_defaults.json in the folder configuration_files will be used.
+    """
+
     # Convert all the json files to dictionaries
     pop_dict = json.load(pop_json)
     vax_dict = json.load(vax_json)

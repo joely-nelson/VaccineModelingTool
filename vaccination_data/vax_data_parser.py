@@ -7,9 +7,24 @@ import time
 import csv
 import json
 
-# Takes arguments unparsed population file, removes all non-recent 
-# population data, and outputs a parsed file.
 def population_parser(unparsed, parsed):
+    """
+    Takes an unparsed file of population data and creates a parsed file containing only
+    the most recent population data for each country. 
+
+    PRE: 
+        Correct file is used for unparsed (see ARGS)
+
+    ARGS:
+        - unparsed: an opened csv file containing unparsed population data obtained from
+          the JohnSnowLabs project
+        - parsed: a csv file into which only the most recent population data will
+          be put, with the following fields for each column:
+            - column 0: country name
+            - column 1: ISO code (uniform three-letter code for each country)
+            - column 2: Most recent population data
+    """
+
     parsed_writer = csv.writer(parsed)
     # Go through each row in unparsed file
     for row in csv.reader(unparsed):
@@ -24,11 +39,23 @@ def population_parser(unparsed, parsed):
             else: 
                 parsed_writer.writerow((row[0], row[1], row[58]))
 
-# Takes most recent weekly and daily averages for countries and puts them into a
-# a parsed data file.  Note that the data must be sorted by country and then
-# sorted by date with the least recent dates occuring first in the csv file in order
-# for this parser to work.
 def vax_parser(unparsed, parsed):
+    """
+    Takes an unparsed file of vaccination data and creates a parsed file containing only
+    the daily average of vaccinations over the last 7 days for each country
+
+    PRE: 
+        Correct file is used for unparsed (see ARGS)
+
+    ARGS:
+        - unparsed: an opened csv file containing unparsed vaccination data obtained from
+          the OWID COVID data project, specifically the file vaccinations
+        - parsed: an opened csv file into which only the daily average of vaccinations
+          will be put, with the following fields for each column
+            - column 0: country name
+            - column 1: ISO code (uniform three-letter code for each country)
+            - column 2: daily average of vaccinations over the last 7 days
+    """
     parsed_writer = csv.writer(parsed)
     # Dictionary that keeps track of how many times we've seen each country
     country_entries = {}
@@ -68,10 +95,29 @@ def vax_parser(unparsed, parsed):
             parsed_writer.writerow((row[0], row[1], 
                 vax_7_day[row[1]] / country_entries[row[1]]))
             country_entries[row[1]] = 8
-
-# Takes an unparsed data file containing COVID-19 death rates on a country-by-country
-# basis and outputs a parsed file with only the most recent weekly data for each country    
+    
 def cases_deaths_parser(unparsed, parsed_deaths, parsed_cases):
+    """
+    Takes an unparsed data file containing COVID-19 death rates and case rates on a 
+    country-by-country basis and puts in a parsed file only the most recent weekly 
+    data for each country.
+
+    PRE: 
+        Correct file is used for unparsed (see ARGS)
+
+
+    ARGS:
+        - unparsed: an opened csv file containing unparsed vaccination data obtained from
+          the OWID COVID data project's JHU data, specifically the file full_data
+        - parsed_deaths: an opened csv file into which only the most recent weekly death data
+          will be put, with th columns as follows:
+            - column 0: country name
+            - column 1: most recently weekly deaths
+        - parsed_cases : an opened csv file into which only the most recent weekly case data
+          will be put, with th columns as follows:
+            - column 0: country name
+            - column 1: most recently weekly deaths
+    """
     deaths_writer = csv.writer(parsed_deaths)
     cases_writer = csv.writer(parsed_cases)
     # Dictionary that keeps track of most recent weekly deaths
@@ -101,9 +147,25 @@ def cases_deaths_parser(unparsed, parsed_deaths, parsed_cases):
             cases_writer.writerow((row[1], recent_cases[row[1]]))
             countries_seen.add(row[1])
 
-# Takes an unparsed data file containing the latest COVID-19 data and outputs
-# a single csv file mapping country iso_codes to r-values
 def r_value_parser(unparsed, parsed):
+    """
+    Takes an unparsed data file containing the latest COVID-19 data and puts into
+    a single csv file only the most recent COVID-19 reproduction numbers for countries
+    that have them.
+
+    PRE: 
+        Correct file is used for unparsed (see ARGS)
+
+    ARGS:
+        - unparsed: an opened csv file containing unparsed COVID-19 data obtained from
+          the OWID COVID data project, specifically the file owid-covid-latest
+        - parsed: an opened csv file into which only the daily average of vaccinations
+          will be put, with the following fields for each column
+            - column 0: ISO code (uniform three-letter code for each country)
+            - column 1: country name
+            - column 2: r-value for said country
+    """
+
     r_writer = csv.writer(parsed)
     # Go through each row in unparsed file
     for row in csv.reader(unparsed):
