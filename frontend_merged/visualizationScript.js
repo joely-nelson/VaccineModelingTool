@@ -47,9 +47,6 @@ const zoom = d3.zoom()
       .scaleExtent([1, 8])
       .on('zoom', zoomed);
 
-
-
-
 function zoomed(event, d) {
     map.selectAll('path') // To prevent stroke width from scaling
     .attr('transform', event.transform);
@@ -73,10 +70,7 @@ function update() {
       var colorSelection = d3.scaleSequential(colorScale) // used for normal output values
       var logColorSelector = d3.scalePow().exponent(0.1).range(colorScale); // use for smaller output values
       if (simResults == undefined) {
-        if (dummy_model_output[countryCode] == undefined) {
-          return "black";
-        }
-        return colorSelection(dummy_model_output[countryCode][1][currentTimeIndex][3] / 100.0);
+        return "black"
       } else if (simResults[countryCode] == undefined) {
         return "black";
       } else if (currentViewingOption == "Exposed" || currentViewingOption == "Dead" || currentViewingOption == "Infected" || currentViewingOption == "Recovered") {
@@ -88,7 +82,6 @@ function update() {
     .on("click", function(d, i) { // handles on click functionality
       currentCountryName = d.target.__data__.properties.ADMIN;
       currentCountryCode = d.target.__data__.properties.ISO_A3;
-      // open window??
       popupWindow = window.open(
         'popupWindow/popup.html','popUpWindow','height=700,width=500,left=0,top=200,resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes')
     })
@@ -98,19 +91,7 @@ function update() {
     var countryCode = d.properties.ISO_A3;
     var countryName = d.properties.ADMIN;
     if (simResults == undefined) {
-      if (dummy_model_output[countryCode] == undefined) {
-        return countryCode;
-      }
-      var s =  countryName + "\n\n"
-      + "Population: " + population[d.properties.ISO_A3] + "\n"
-      + "Suceptible: " + dummy_model_output[countryCode][1][currentTimeIndex][0] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Exposed: " +  dummy_model_output[countryCode][1][currentTimeIndex][1] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Infected: " +  dummy_model_output[countryCode][1][currentTimeIndex][2] * 100 / population[d.properties.ISO_A3]  + "%\n"
-      + "Dead: " +  dummy_model_output[countryCode][1][currentTimeIndex][3] * 100 / population[d.properties.ISO_A3] + "%\n"
-      + "Recovered: " +  dummy_model_output[countryCode][1][currentTimeIndex][4] * 100 / population[d.properties.ISO_A3] + "%\n"
-      + "Vaccinated: " +  dummy_model_output[countryCode][1][currentTimeIndex][5] * 100 / population[d.properties.ISO_A3] + "%\n";
-
-      return s; 
+      return countryName
     } else {
       if (simResults[countryCode] == undefined) {
         return countryName;
@@ -154,8 +135,6 @@ function createSlider(n) {
   currentTimeIndex = 0;
   d3.select("#slider").select("svg").remove();
 
-
-
   d3.select("#slider")
   .append("svg")
   .attr('width', 600)
@@ -165,6 +144,7 @@ function createSlider(n) {
   .call(slider);
 
   map.selectAll("path").remove();
+
   update();
 }
 
@@ -186,6 +166,6 @@ svg.call(zoom);
 // initial call 
 update();
 
-// createSlider(20);
+
 
 
