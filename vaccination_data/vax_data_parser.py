@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-# This module contains all the functions for parsing obtained data files
+# Author: Kenny Krivanek
+# Purpose: This module contains all the functions for parsing obtained data files
 import requests
 import sys
 import time

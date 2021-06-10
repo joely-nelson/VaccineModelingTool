@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-
-# This module contains all functions that manipulate various files to create json files.
+# Author: Kenny Krivanek
+# Purpose: This module contains all functions that manipulate various files to create json files.
 import requests
 import sys
 import time

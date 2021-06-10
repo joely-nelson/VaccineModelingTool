@@ -1,6 +1,9 @@
 #!/usr/bin/env python
-
-# This module uses resources from the Our World in Data Project by Oxford University.
+# Author: Kenny Krivanek
+# Purpose: This module obtains data from various different resources for 
+# the vaccine modeling project.
+# This module uses resources from the Our World in Data Project by Oxford University,
+# and the DataHub published by JohnSnowLabs.
 import requests
 import sys
 import time
