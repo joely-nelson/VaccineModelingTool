@@ -1,5 +1,5 @@
 # VaccineModelingTool
-Tool made for CSE 482: CSE 482B, Capstone Software Design to Empower Underserved Populations, that enables researchers to better understand how COVID-19 vaccination efficacy and distribution impacts the spread of the virus.
+Tool made for CSE 482: CSE 482B, Capstone Software Design to Empower Underserved Populations. It is an interactive modeling tool which, given user input, models pandemic outcomes and displays them on a global map. We aimed to make a tool user-friendly enough that someone with only basic public health knowledge could use our tool and could gain useful insights.
 
 ### How to run
 1. Visit the VaccineModelingTool folder, in your terminal run the command "python centralServer.py"
